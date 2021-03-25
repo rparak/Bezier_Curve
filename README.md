@@ -13,10 +13,6 @@ Python
  Matplotlib, NumPy
 ```
 
-## Project Description:
-
-Text
-
 ## Project Hierarchy:
 
 **Repositary [/Bezier_Curve_Simple/]:**
