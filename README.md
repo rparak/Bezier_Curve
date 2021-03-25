@@ -2,9 +2,15 @@
 
 ## Requirements:
 
-**Software:**
-```bash
+**Programming Language:**
 
+```bash
+Python
+```
+
+**Import Libraries:**
+```bash
+ Matplotlib, NumPy
 ```
 
 ## Project Description:
