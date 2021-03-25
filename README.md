@@ -21,7 +21,7 @@ Text
 
 **Repositary [/Bezier_Curve_Simple/]:**
 ```bash
-[ Brief presentation on Bézier curves ] /PDF/
+[ Brief presentation of Bézier curves ] /PDF/
 [ Main Script                         ] /Script/
 ```
 
