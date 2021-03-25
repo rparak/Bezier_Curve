@@ -19,9 +19,10 @@ Text
 
 ## Project Hierarchy:
 
-**Repositary [//]:**
+**Repositary [/Bezier_Curve_Simple/]:**
 ```bash
-[ ] //
+[ ] /PDF/
+[ ] /Script/
 ```
 
 ## Application:
