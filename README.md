@@ -2,27 +2,30 @@
 
 ## Requirements:
 
-**Software:**
-```bash
+**Programming Language:**
 
+```bash
+Python
 ```
 
-## Project Description:
-
-Text
+**Import Libraries:**
+```bash
+ Matplotlib, NumPy
+```
 
 ## Project Hierarchy:
 
-**Repositary [//]:**
+**Repositary [/Bezier_Curve_Simple/]:**
 ```bash
-[ ] //
+[ Brief presentation of Bézier curves ] /PDF/
+[ Main Script                         ] /Script/
 ```
 
 ## Application:
 
-
-## Result:
-
+<p align="center">
+<img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/app.png" width="800" height="500">
+</p>
 
 ## Contact Info:
 Roman.Parak@outlook.com
