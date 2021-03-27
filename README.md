@@ -18,7 +18,8 @@ Python, C++
 **Repositary [/Bezier_Curve_Simple/]:**
 ```bash
 [ Brief presentation of Bézier curves ] /PDF/
-[ Main Script                         ] /Script/
+[ Main Script (2D, 3D)                ] /Script/Python/
+[ Main Script (2D, 3D)                ] /Script/CPP/
 ```
 
 ## Application:
