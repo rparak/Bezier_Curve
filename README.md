@@ -27,7 +27,7 @@ Python, C++
 
 <p align="center">
 <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/1_2d.png" width="700" height="500">
- <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/1_3d.png" width="800" height="600">
+ <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/1_3d.png" width="750" height="600">
 </p>
 
 ## Contact Info:
