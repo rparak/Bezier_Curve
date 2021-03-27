@@ -26,7 +26,7 @@ Python, C++
 **Bézier curve (Linear) 2D & 3D:**
 
 <p align="center">
-<img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/1_2d.png" width="400" height="325">
+<img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/1_2d.png" width="350" height="300">
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/1_3d.png" width="450" height="350">
 </p>
 
