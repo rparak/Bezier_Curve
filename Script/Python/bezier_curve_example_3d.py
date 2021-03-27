@@ -374,7 +374,7 @@ class bezier_ctrl(object):
 
             self.__display_aux_result()
 
-            # If the number of user entry points is greater than 4, the program chooses the n_points calculation method, but if the simplification 
+            # If the number of user input points is greater than 4, the program chooses the n_points calculation method, but if the simplification 
             # coefficient is greater than 1, the program can choose another method and this calculation principle is faster.
             if self.simplification_factor > 1:
                 # If the coefficient coefficient is greater than 1, simplify the path
