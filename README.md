@@ -59,31 +59,31 @@ Python, C++
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_1.png" width="750" height="500">
 </p>
 
-**Simplified factor - 1:**
+**Simplified factor - 2:**
 
 <p align="center">
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_2.png" width="750" height="500">
 </p>
 
-**Simplified factor - 1:**
+**Simplified factor - 3:**
 
 <p align="center">
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_3.png" width="750" height="500">
 </p>
 
-**Simplified factor - 1:**
+**Simplified factor - 4:**
 
 <p align="center">
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_4.png" width="750" height="500">
 </p>
 
-**Simplified factor - 1:**
+**Simplified factor - 5:**
 
 <p align="center">
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_5.png" width="750" height="500">
 </p>
 
-**Simplified factor - 1:**
+**Simplified factor - 6:**
 
 <p align="center">
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_6.png" width="750" height="500">
