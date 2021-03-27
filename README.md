@@ -1,4 +1,4 @@
-# A simple example of using Bézier curves
+# A simple example of using Bézier curves (2D, 3D)
 
 ## Requirements:
 
