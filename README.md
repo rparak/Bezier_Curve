@@ -30,6 +30,27 @@ Python, C++
  <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/1_3d.png" width="400" height="325">
 </p>
 
+**Bézier curve (Quadratic) 2D & 3D:**
+
+<p align="center">
+<img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/2_2d.png" width="400" height="325">
+ <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/2_3d.png" width="400" height="325">
+</p>
+
+**Bézier curve (Cubic) 2D & 3D:**
+
+<p align="center">
+<img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/3_2d.png" width="400" height="325">
+ <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/3_3d.png" width="400" height="325">
+</p>
+
+**Bézier curve (N-Degree) 2D & 3D:**
+
+<p align="center">
+<img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/4_2d.png" width="400" height="325">
+ <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/4_3d.png" width="400" height="325">
+</p>
+
 ## Contact Info:
 Roman.Parak@outlook.com
 
