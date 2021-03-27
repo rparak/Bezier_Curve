@@ -21,7 +21,7 @@ SOFTWARE.
 Author   : Roman Parak
 Email    : Roman.Parak@outlook.com
 Github   : https://github.com/rparak
-File Name: bezier_curve_example.py
+File Name: bezier_curve_example_2d.py
 ## =========================================================================== ## 
 """
 
@@ -40,14 +40,14 @@ class bezier_ctrl(object):
 
         The class shows several types of Bézier curves (Linear, Quadratic, Cubic).
     """
-    def __init__(self, p_0, p_1, p_2, p_3, step):
+    def __init__(self, p, step):
         # << PUBLIC >> #
         # Time t ∈ [0, 1]
         self.t = np.linspace(0.0, 1.0, step)
         # Points
-        self.p = [p_0, p_1, p_2, p_3]
-        # Remove empty (None) parts of the array.
-        self.p = [x for x in self.p if x is not None]
+        self.p = p
+        # Path simplification factor (skip some points)
+        self.simplification_factor = 1
         # << PRIVATE >> #
         # Display (Plot) variable.
         self.__plt = plt
@@ -63,11 +63,9 @@ class bezier_ctrl(object):
         Args:
             (1 - 2) p_0, p_0 [Float Array]: Multiple points to create a curve.
             (3) t [Float Array]: Time variable.
+
         Returns:
             (1 - 2) x, y [Float Array]: Results of curve values.
-
-        Examples:
-            self.__linear_curve([1.0, 1.0], [2.0, 2.0])
         """
 
         x = (1 - t) * p_0[0] + t * p_1[0]
@@ -87,11 +85,9 @@ class bezier_ctrl(object):
         Args:
             (1 - 2) p_0, p_0, p_2 [Float Array]: Multiple points to create a curve.
             (3) t [Float Array]: Time variable.
+
         Returns:
             (1 - 2) x, y [Float Array]: Results of curve values.
-
-        Examples:
-            self.__quadratic_curve([1.0, 1.0], [2.0, 2.0], [3.0, 2.0])
         """
 
         x = (1 - t)**2 * p_0[0] + 2 * t * (1 - t) * p_1[0] + t**2 * p_2[0]
@@ -111,15 +107,72 @@ class bezier_ctrl(object):
         Args:
             (1 - 2) p_0, p_0, p_2 [Float Array]: Multiple points to create a curve.
             (3) t [Float Array]: Time variable.
+
         Returns:
             (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of curve values.
-
-        Examples:
-            self.__cubic_curve([1.0, 1.0], [2.0, 2.0], [3.0, 2.0], [4.0, 1.0])
         """
 
         x = ((1 - t)**3) * (p_0[0]) + (3 * t * (1 - t)**2) * (p_1[0]) + 3 * (t**2) * (1 - t) * p_2[0] + (t**3) * p_3[0]
         y = ((1 - t)**3) * (p_0[1]) + (3 * t * (1 - t)**2) * (p_1[1]) + 3 * (t**2) * (1 - t) * p_2[1] + (t**3) * p_3[1]
+
+        return x, y
+
+    @staticmethod
+    def __binomial_coefficient(n, k):
+        """
+        Description:
+            Calculation binomial coofecient C, from pair of integers n ≥ k ≥ 0 and is written (n k). The binomial coefficients are the positive integers that occur as coefficients in the binomial theorem.
+
+            (n k) = n! / (k! * (n - k)!)
+            ...
+            Simplification of the calculation:
+            (n k) = ((n - k + 1) * (n - k + 2) * ... * (n - 1) * (n)) / (1 * 2 * ... * (k - 1) * k)
+        
+        Args:
+            (1) n [INT]: Integer number 1 (numerator)
+            (2) k [INT]: Integer number 2 (denumerator)
+
+        Returns:
+            (1) param_1 [INT]: Binomial coofecient C(n k).
+        """
+
+        # Take advantage of symmetry
+        if k > (n - k):
+            k = n - k
+
+        c_nk = 1
+
+        # Calculation from the simplification equation
+        for i in range(k):
+            c_nk *= (n - i) # numerator
+            c_nk /= (i + 1) # denumerator
+
+        return c_nk
+
+    @staticmethod
+    def __n_index_curve(i, p, t, n, c_ni):
+        """
+        Description:
+            Given n + 1 control points p_{0}, p_{1},..., p_{n} we define the degree n Bezier curve to
+            be the curve parametrized by (De Casteljau's algorithm):
+
+            p(t) = sum(i = 0 -> n) (C(n i)) * (t ^ i) * ((1 - t) ^ (n - i)) * p_{i}, t ∈ [0, 1]
+
+            where C(n i) is a binomial coefficient.
+
+        Args:
+            (1) i [INT]: Iteration.
+            (2) p [Float Array]: Point (x, y) in interation (i).
+            (3) t [Float Array]: Time variable.
+            (4) n [INT]: Number of points.
+            (5) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
+
+        Returns:
+            (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of curve values in iteration (i).
+        """
+
+        x = c_ni * (t**i) * ((1 - t)**(n - i)) * p[0]
+        y = c_ni * (t**i) * ((1 - t)**(n - i)) * p[1]
 
         return x, y
 
@@ -130,6 +183,7 @@ class bezier_ctrl(object):
 
         Args:
             (1) s_index [INT]: Number of points for calculation.
+
         Returns:
             (1) param 1 [String]: The resulting string for the label.
         """
@@ -142,7 +196,7 @@ class bezier_ctrl(object):
         }
 
         # Return Result (Get the string with number of points for the Legend Label)
-        return switch_var.get(s_index, "Wrong Input!")
+        return switch_var.get(s_index, r'Points: $p_{0}, p_{1},..., p_{n}$')
 
     def __two_points(self):
         """
@@ -199,6 +253,85 @@ class bezier_ctrl(object):
 
         self.__plt.plot(x, y, 'b--', label=r'Cubic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$, $p_{3}$]', linewidth=2.5)
 
+    @staticmethod
+    def __path_simplification(p, simplification_factor):
+        """
+        Description:
+            Function to simplify the path through the simplification factor. The first and end points do not change, the others 
+            depend on the factor coefficient.
+
+            Example:
+                Input Points: 
+                    p = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
+                Number of points: 
+                    n = 8
+                Simplification Factor:
+                    s_f           = 1
+                    p_aux (new p) = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
+                    n             = 8
+
+                    s_f           = 2
+                    p_aux (new p) = [1.0, 1.0], [None], [1.75, 2.0], [None], [1.0, -1.0], [None], [1.75, -2.0], [2.0, -1.0] 
+                    p_aux (new p) = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
+                    n             = 5
+        Args:
+            (1) simplification_factor [INT]: Simplification factor for the simplify the path.
+
+        Return:
+            (1) param_1 [Float Array]: New simplified array of points to create a curve.
+
+        """
+
+        p_aux = []
+
+        p_aux.append(p[0])
+
+        for i in range(1, len(p) - 1):
+            if i % simplification_factor == 0:
+                p_aux.append(p[i])
+
+        if p_aux[len(p_aux) - 1] != p[len(p) - 1]:
+            p_aux.append(p[len(p) - 1])
+
+        return p_aux
+
+    def __n_points(self):
+        """
+        Description:
+            Function to create multiple linear Bézier curves and a n-degree Bézier curve.
+        """
+
+        for i in range(len(self.p) - 1):
+            x, y = self.__linear_curve(self.p[i], self.p[i + 1], self.t)
+            
+            if i == (len(self.p) - 1) - 1:
+                self.__plt.plot(x, y, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; ... ; [$p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
+            else:
+                self.__plt.plot(x, y, 'r--', linewidth=2.5)
+
+        # Number of points in array
+        n = len(self.p) - 1
+
+        # Calculation of binomial cooficient of the first iteration
+        c_nk = self.__binomial_coefficient(n, 0)
+
+        # Calculation of the first x, y curve positions
+        x = c_nk * (self.t**0) * ((1 - self.t)**(n - 0)) * self.p[0][0]
+        y = c_nk * (self.t**0) * ((1 - self.t)**(n - 0)) * self.p[0][1]
+
+        for i in range(1, n + 1):
+            # Binomial cooficient in interation (i)
+            c_nk = self.__binomial_coefficient(n, i)
+
+            # Calculation positions in iteration (i)
+            x_aux, y_aux = self.__n_index_curve(i, self.p[i], self.t, n, c_nk)
+
+            # The sum of all positions for the resulting Bézier curve
+            x += x_aux
+            y += y_aux
+
+        self.__plt.plot(x, y, 'b--', label=r'N-Degree Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; ... ; [$p_{n - 1}$, $p_{n}$]', linewidth=2.5)
+
     def __display_aux_result(self):
         """
         Description:
@@ -222,6 +355,14 @@ class bezier_ctrl(object):
         try:
             assert len(self.p) > 1
 
+            self.__display_aux_result()
+
+            # If the number of user entry points is greater than 4, the program chooses the n_points calculation method, but if the simplification 
+            # coefficient is greater than 1, the program can choose another method and this calculation principle is faster.
+            if self.simplification_factor > 1:
+                # If the coefficient coefficient is greater than 1, simplify the path
+                self.p = self.__path_simplification(self.p, self.simplification_factor)
+
             # Select a calculation method based on the number of points in the array (p).
             if len(self.p) == 2:
                 self.__two_points()
@@ -229,14 +370,15 @@ class bezier_ctrl(object):
                 self.__three_points()
             elif len(self.p) == 4:
                 self.__four_points()
-
-            self.__display_aux_result()
+            else:
+                self.__n_points()
 
             # Set additional features for successful display of the Bézier curves.
             self.__plt.grid()
             self.__plt.xlabel('x axis [Unit]', fontsize = 20, fontweight ='normal')
             self.__plt.ylabel('y axis [Unit]', fontsize = 20, fontweight ='normal')
             self.__plt.title('Bezier Curve', fontsize = 50, fontweight ='normal')
+
             self.__plt.legend(loc=0,fontsize=20)
 
             # Display a figure. Wait for the user to close the window.
@@ -245,6 +387,7 @@ class bezier_ctrl(object):
         except AssertionError as error:
             print('[INFO] Insufficient number of entry points.')
             print('[INFO] The minimum number of entry points is 2.')
+
 
 def main():
     # Initialization of the Class (Control Manipulator)
@@ -256,17 +399,20 @@ def main():
 
     # Try the calculation of the Bézier curve:
     # Select one of these options: 2 - Linear Curve, 3 - Quadratic Curve, 4 - Cubic Curve
-    test = 4
+    test = 'n_degree'
 
-    if test == 2:
+    if test == 'linear':
         # Linear Curve
-        bezier = bezier_ctrl([1.0, 1.0], [1.25, 2.0], None, None, 100)
-    elif test == 3:
+        bezier = bezier_ctrl([[1.0, 1.0], [1.25, 2.0]], 100)
+    elif test == 'quadratic':
         # Quadratic Curve
-        bezier = bezier_ctrl([1.0, 1.0], [1.25, 2.0], [1.75, 2.0], None, 100)
-    elif test == 4:
+        bezier = bezier_ctrl([[1.0, 1.0], [1.25, 2.0], [1.75, 2.0]], 100)
+    elif test == 'cubic':
         # Cubic Curve
-        bezier = bezier_ctrl([1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], 100)
+        bezier = bezier_ctrl([[1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0]], 100)
+    elif test == 'n_degree':
+        bezier = bezier_ctrl([[1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]], 100)
+        bezier.simplification_factor = 1
 
     # Display the result of the calculation -> figure with the resulting Bézier curves
     bezier.display_result()
