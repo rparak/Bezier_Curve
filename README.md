@@ -55,7 +55,7 @@ Python, C++
 
 **Simplified factor - 1:**
 <p align="center">
- <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_1.png" width="800" height="500">
+ <img src="https://github.com/rparak/Bezier_Curve_Simple/blob/main/images/sf_1.png" width="750" height="500">
 </p>
 
 ## Contact Info:
