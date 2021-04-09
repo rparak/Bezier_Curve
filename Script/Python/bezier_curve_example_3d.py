@@ -67,7 +67,7 @@ class bezier_ctrl(object):
             (3) t [Float Array]: Time variable.
 
         Returns:
-            (1 - 2) x, y [Float Array]: Results of curve values.
+            (1 - 3) parameter{1}, parameter{2}, parameter{3} [Float Array]: Results of curve values.
 
         Examples:
             self.__linear_curve([1.0, 1.0], [2.0, 2.0])
@@ -93,7 +93,7 @@ class bezier_ctrl(object):
             (3) t [Float Array]: Time variable.
 
         Returns:
-            (1 - 2) x, y [Float Array]: Results of curve values.
+            (1 - 3) parameter{1}, parameter{2}, parameter{3} [Float Array]: Results of curve values.
 
         Examples:
             self.__quadratic_curve([1.0, 1.0], [2.0, 2.0], [3.0, 2.0])
@@ -119,7 +119,7 @@ class bezier_ctrl(object):
             (3) t [Float Array]: Time variable.
 
         Returns:
-            (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of curve values.
+            (1 - 3) parameter{1}, parameter{2}, parameter{3} [Float Array]: Results of curve values.
 
         Examples:
             self.__cubic_curve([1.0, 1.0], [2.0, 2.0], [3.0, 2.0], [4.0, 1.0])
@@ -147,7 +147,7 @@ class bezier_ctrl(object):
             (2) k [INT]: Integer number 2 (denumerator)
 
         Returns:
-            (1) param_1 [INT]: Binomial coofecient C(n k).
+            (1) parameter{1} [INT]: Binomial coofecient C(n k).
         """
 
         # Take advantage of symmetry
@@ -182,7 +182,7 @@ class bezier_ctrl(object):
             (5) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
 
         Returns:
-            (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of curve values in iteration (i).
+            (1 - 2) parameter{1}, parameter{2}, parameter{3} [Float Array]: Results of curve values in iteration (i).
         """
 
         x = c_ni * (t**i) * ((1 - t)**(n - i)) * p[0]
@@ -200,7 +200,7 @@ class bezier_ctrl(object):
             (1) s_index [INT]: Number of points for calculation.
 
         Returns:
-            (1) param 1 [String]: The resulting string for the label.
+            (1) parameter{1} [String]: The resulting string for the label.
         """
 
         # Switch Variable
@@ -293,7 +293,7 @@ class bezier_ctrl(object):
             (1) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
-            (1) param_1 [Float Array]: New simplified array of points to create a curve.
+            (1) parameter{1} [Float Array]: New simplified array of points to create a curve.
 
         """
 
