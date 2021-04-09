@@ -65,7 +65,7 @@ class bezier_ctrl(object):
             (3) t [Float Array]: Time variable.
 
         Returns:
-            (1 - 2) x, y [Float Array]: Results of curve values.
+            (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of curve values.
         """
 
         x = (1 - t) * p_0[0] + t * p_1[0]
@@ -87,7 +87,7 @@ class bezier_ctrl(object):
             (3) t [Float Array]: Time variable.
 
         Returns:
-            (1 - 2) x, y [Float Array]: Results of curve values.
+            (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of curve values.
         """
 
         x = (1 - t)**2 * p_0[0] + 2 * t * (1 - t) * p_1[0] + t**2 * p_2[0]
@@ -133,7 +133,7 @@ class bezier_ctrl(object):
             (2) k [INT]: Integer number 2 (denumerator)
 
         Returns:
-            (1) param_1 [INT]: Binomial coofecient C(n k).
+            (1) parameter{1} [INT]: Binomial coofecient C(n k).
         """
 
         # Take advantage of symmetry
@@ -185,7 +185,7 @@ class bezier_ctrl(object):
             (1) s_index [INT]: Number of points for calculation.
 
         Returns:
-            (1) param 1 [String]: The resulting string for the label.
+            (1) parameter{1} [String]: The resulting string for the label.
         """
 
         # Switch Variable
@@ -278,7 +278,7 @@ class bezier_ctrl(object):
             (1) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
-            (1) param_1 [Float Array]: New simplified array of points to create a curve.
+            (1) parameter{1} [Float Array]: New simplified array of points to create a curve.
 
         """
 
