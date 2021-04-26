@@ -68,7 +68,7 @@ class bezier_ctrl(object):
             p(t) = (1 - t)*p_{0} + t*p_{1}, t ∈ [0, 1]
 
         Args:
-            (1) p_{0 .. 1} [Float Array]: Multiple points to create a curve.
+            (1) points [p_{0, 1}] [Float Array]: Multiple points to create a curve.
 
         Returns:
             (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
@@ -86,7 +86,7 @@ class bezier_ctrl(object):
             p(t) = ((1 - t)^2)*p_{0} + 2*t*(1 - t)*p_{1} + (t^2)*p_{2}, t ∈ [0, 1]
 
         Args:
-            (1) p_{0 .. 2} [Float Array]: Multiple points to create a curve.
+            (1) points [p_{0, 1, 2}] [Float Array]: Multiple points to create a curve.
 
         Returns:
             (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
@@ -104,7 +104,7 @@ class bezier_ctrl(object):
             p(t) = ((1 - t)^3)*p_{0} + 3*t*((1 - t)^2)*p_{1} + (3*t^2)*(1 - t)*p_{2} + (t^3) * p_{3}, t ∈ [0, 1]
 
         Args:
-            (1) p_{0 .. 3} [Float Array]: Multiple points to create a curve.
+            (1) points [p_{0, 1, 2, 3}] [Float Array]: Multiple points to create a curve.
 
         Returns:
             (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
@@ -213,7 +213,7 @@ class bezier_ctrl(object):
     def __n_points(self):
         """
         Description: 
-            Function to create n-degree Bézier curve.
+            The main control function for creating a Bézier curve of degree n.
         """
         
         # Number of points in array
@@ -241,14 +241,21 @@ class bezier_ctrl(object):
     def auto(self, points, simplification_factor):
         """
         Description:
-            Function for calculating and displaying the results of Bézier curves.
+            Function of automatic calculation of individual Bézier curves. 
+            
+        Args:
+            (1) points [p_{0, .., n}] [Float Array]: Multiple points to create a curve.
+            (2) simplification_factor [INT]: Simplification factor for the simplify the path.
+
+        Return:
+            (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
         """
 
         try:
             assert len(points) > 1
 
-            # If the number of input points is greater than 4 (and variable simplification_factor = 1 || 0), the program chooses the n_points calculation method, but if the simplification 
-            # coefficient is greater than 1, the program can choose another method and the principle of calculation will be faster.
+            # If the number of input points is greater than 4 and variable simplification_factor > 1, the program chooses the n_points calculation method. But if the simplification 
+            # coefficient is greater than or equal to 1, the program can choose another method and the principle of calculation will be faster.
             if simplification_factor > 1 and len(points) > 4:
                 # If the coefficient coefficient is greater than 1, simplify the path
                 self.__p = self.__path_simplification(points, simplification_factor)
