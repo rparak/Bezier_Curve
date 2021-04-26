@@ -57,7 +57,7 @@ class bezier_ctrl(object):
         # Time t ∈ [0, 1]
         self.t = np.linspace(0.0, 1.0, step)
         # << PRIVATE >> #
-        # Points [Float Array]
+        # Points [Float Matrix]
         self.__p = []
 
     def linear_curve(self, p):
@@ -68,10 +68,10 @@ class bezier_ctrl(object):
             p(t) = (1 - t)*p_{0} + t*p_{1}, t ∈ [0, 1]
 
         Args:
-            (1) points [p_{0, 1}] [Float Array]: Multiple points to create a curve.
+            (1) points [p_{0, 1}] [Float Matrix]: Multiple points to create a curve.
 
         Returns:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
+            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
         """
 
         return [(1 - self.t) * point[0] + self.t * point[1] 
@@ -86,10 +86,10 @@ class bezier_ctrl(object):
             p(t) = ((1 - t)^2)*p_{0} + 2*t*(1 - t)*p_{1} + (t^2)*p_{2}, t ∈ [0, 1]
 
         Args:
-            (1) points [p_{0, 1, 2}] [Float Array]: Multiple points to create a curve.
+            (1) points [p_{0, 1, 2}] [Float Matrix]: Multiple points to create a curve.
 
         Returns:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
+            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
         """
 
         return [(1 - self.t)**2 * point[0] + 2 * self.t * (1 - self.t) * point[1] + self.t**2 * point[2] 
@@ -104,10 +104,10 @@ class bezier_ctrl(object):
             p(t) = ((1 - t)^3)*p_{0} + 3*t*((1 - t)^2)*p_{1} + (3*t^2)*(1 - t)*p_{2} + (t^3) * p_{3}, t ∈ [0, 1]
 
         Args:
-            (1) points [p_{0, 1, 2, 3}] [Float Array]: Multiple points to create a curve.
+            (1) points [p_{0, 1, 2, 3}] [Float Matrix]: Multiple points to create a curve.
 
         Returns:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
+            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
         """
 
         return [((1 - self.t)**3) * (point[0]) + (3 * self.t * (1 - self.t)**2) * (point[1]) + 3 * (self.t**2) * (1 - self.t) * point[2] + (self.t**3) * point[3] 
@@ -157,12 +157,12 @@ class bezier_ctrl(object):
 
         Args:
             (1) idx [INT]: Iteration.
-            (2) p [Float Array]: Point (2D/3D) in interation (i).
+            (2) p [Float Matrix]: Point (2D/3D) in interation (i).
             (3) n [INT]: Number of points.
             (4) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
 
         Returns:
-            (1) parameter{1 .. self.__num_of_dimensions} [Float Array]: Results of curve values in iteration (i).
+            (1) parameter{1 .. self.__num_of_dimensions} [Float Matrix]: Results of curve values in iteration (i).
         """
 
         return [c_ni * (self.t**idx) * ((1 - self.t)**(n - idx)) * point 
@@ -193,7 +193,7 @@ class bezier_ctrl(object):
             (1) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
-            (1) parameter{1} [Float Array]: New simplified array of points to create a curve.
+            (1) parameter{1} [Float Matrix]: New simplified matrix of points to create a curve.
 
         """
 
@@ -216,7 +216,7 @@ class bezier_ctrl(object):
             The main control function for creating a Bézier curve of degree n.
         """
         
-        # Number of points in array
+        # Number of points in matrix
         n = len(self.__p) - 1
 
         # Calculation of binomial cooficient of the first iteration
@@ -244,11 +244,11 @@ class bezier_ctrl(object):
             Function of automatic calculation of individual Bézier curves. 
             
         Args:
-            (1) points [p_{0, .., n}] [Float Array]: Multiple points to create a curve.
+            (1) points [p_{0, .., n}] [Float Matrix]: Multiple points to create a curve.
             (2) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Array]: Results of curve values.
+            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
         """
 
         try:
@@ -262,7 +262,7 @@ class bezier_ctrl(object):
             else:
                 self.__p = points
 
-            # Selects the calculation method based on the number of points in the array (p).
+            # Selects the calculation method based on the number of points in the matrix (p).
             if len(self.__p) > 4:
                 return self.__n_points()
             if len(self.__p) == 4:
