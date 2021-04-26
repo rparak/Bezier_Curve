@@ -273,5 +273,5 @@ class bezier_ctrl(object):
                 return self.linear_curve(self.__p)
 
         except AssertionError as error:
-            print('[INFO] Insufficient number of entry points.')
-            print('[INFO] The minimum number of entry points is 2.')
+            print('[ERROR] Insufficient number of entry points.')
+            print('[ERROR] The minimum number of entry points is 2.')
