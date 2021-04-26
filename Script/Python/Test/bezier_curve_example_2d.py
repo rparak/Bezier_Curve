@@ -297,7 +297,7 @@ class bezier_ctrl(object):
 
     def __n_points(self):
         """
-        Description:
+        Description: 
             Function to create multiple linear Bézier curves and a n-degree Bézier curve.
         """
 
@@ -357,8 +357,8 @@ class bezier_ctrl(object):
 
             self.__display_aux_result()
 
-            # If the number of user input points is greater than 4, the program chooses the n_points calculation method, but if the simplification 
-            # coefficient is greater than 1, the program can choose another method and this calculation principle is faster.
+            # If the number of input points is greater than 4 (and variable simplification_factor = 1 || 0), the program chooses the n_points calculation method, but if the simplification 
+            # coefficient is greater than 1, the program can choose another method and the principle of calculation will be faster.
             if self.simplification_factor > 1:
                 # If the coefficient coefficient is greater than 1, simplify the path
                 self.p = self.__path_simplification(self.p, self.simplification_factor)
@@ -390,7 +390,7 @@ class bezier_ctrl(object):
 
 
 def main():
-    # Initialization of the Class (Control Manipulator)
+    # Initialization of the Class (Bézier Curve Control)
     # Input:
     #   (1 - 4) Points [Float Array]
     #   (5) Time Step  [INT]

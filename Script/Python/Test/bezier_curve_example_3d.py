@@ -176,7 +176,7 @@ class bezier_ctrl(object):
 
         Args:
             (1) i [INT]: Iteration.
-            (2) p [Float Array]: Point (x, y) in interation (i).
+            (2) p [Float Array]: Point (x, y, z) in interation (i).
             (3) t [Float Array]: Time variable.
             (4) n [INT]: Number of points.
             (5) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
@@ -221,7 +221,7 @@ class bezier_ctrl(object):
 
         x, y, z = self.__linear_curve(self.p[0], self.p[1], self.t)
 
-        # Display the Linear Bézier Curve p(t) -> x, y
+        # Display the Linear Bézier Curve p(t) -> x, y, z
         self.__axis.plot3D(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]' , linewidth=2.5)
 
     def __three_points(self):
@@ -330,7 +330,7 @@ class bezier_ctrl(object):
         # Calculation of binomial cooficient of the first iteration
         c_nk = self.__binomial_coefficient(n, 0)
 
-        # Calculation of the first x, y curve positions
+        # Calculation of the first x, y, z curve positions
         x = c_nk * (self.t**0) * ((1 - self.t)**(n - 0)) * self.p[0][0]
         y = c_nk * (self.t**0) * ((1 - self.t)**(n - 0)) * self.p[0][1]
         z = c_nk * (self.t**0) * ((1 - self.t)**(n - 0)) * self.p[0][2]
@@ -374,8 +374,8 @@ class bezier_ctrl(object):
 
             self.__display_aux_result()
 
-            # If the number of user input points is greater than 4, the program chooses the n_points calculation method, but if the simplification 
-            # coefficient is greater than 1, the program can choose another method and this calculation principle is faster.
+            # If the number of input points is greater than 4 (and variable simplification_factor = 1 || 0), the program chooses the n_points calculation method, but if the simplification 
+            # coefficient is greater than 1, the program can choose another method and the principle of calculation will be faster.
             if self.simplification_factor > 1:
                 # If the coefficient coefficient is greater than 1, simplify the path
                 self.p = self.__path_simplification(self.p, self.simplification_factor)
@@ -407,7 +407,7 @@ class bezier_ctrl(object):
 
 
 def main():
-    # Initialization of the Class (Control Manipulator)
+    # Initialization of the Class (Bézier Curve Control)
     # Input:
     #   (1 - 4) Points [Float Array]
     #   (5) Time Step  [INT]
