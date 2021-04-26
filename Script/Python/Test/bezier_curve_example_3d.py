@@ -402,8 +402,8 @@ class bezier_ctrl(object):
             self.__plt.show()
 
         except AssertionError as error:
-            print('[INFO] Insufficient number of entry points.')
-            print('[INFO] The minimum number of entry points is 2.')
+            print('[ERROR] Insufficient number of entry points.')
+            print('[ERROR] The minimum number of entry points is 2.')
 
 
 def main():
