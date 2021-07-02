@@ -28,6 +28,23 @@ File Name: bezier_curve.py
 # Numpy (Array computing Lib.) [pip3 install numpy]
 import numpy as np
 
+def linear_curve(self, p):
+    """
+    Description:
+        Given two control points p_{0} and p_{1} we define the linear Bezier curve to be the curve parametrized by:
+
+        p(t) = (1 - t)*p_{0} + t*p_{1}, t ∈ [0, 1]
+
+    Args:
+        (1) points [p_{0, 1}] [Float Matrix]: Multiple points to create a curve.
+
+    Returns:
+        (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
+    """
+
+    return [(1 - self.t) * point[0] + self.t * point[1] 
+            for _, point in enumerate(np.transpose(p))]
+
 class bezier_ctrl(object):
     """
     Description:

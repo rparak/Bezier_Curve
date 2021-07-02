@@ -27,8 +27,11 @@ File Name: test.py
 
 # System (Default Lib.)
 import sys
+
 # Mtaplotlib (Visualization Lib.) [pip3 install matplotlib]
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d
+
 # Own library for Bézier curve calculation
 from bezier_curve import bezier_ctrl
 
@@ -37,12 +40,12 @@ def main():
     dimensional_space = '3D'
 
     # Visibility of curves
-    visible_linear, visible_quadratic, visible_cubic, visible_auto = False, False, False, True
+    visible_linear, visible_quadratic, visible_cubic, visible_auto = True, False, False, False
 
     if dimensional_space == '2D':
         points = [[1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]]
     else:
-        axis = plt.axes(projection='3d')
+        _, axis = plt.subplots(subplot_kw={"projection": "3d"})
         points = [[1.0, 1.0, 1.0], [1.25, 2.0, 2.5], [1.75, 2.0, 1.5], [2.0, 1.0, 1.0], [1.0, -1.0, 2.0], [1.25, -2.0, 1.75], [1.75, -2.0, 2.75], [2.0, -1.0, 2.0]]
 
     """
@@ -60,17 +63,17 @@ def main():
     if visible_linear == True:
         for i in range(len(points) - 1):
             result = bezier.linear_curve([points[i], points[i + 1]])
-                
+            
             if i == (len(points) - 1) - 1:
                 if dimensional_space == '2D':
                     plt.plot(result[0], result[1], 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$] ; ... ; [$p_{n - 1}$, $p_{n}$]', linewidth=2.5)
                 else:
-                    axis.plot3D(result[0], result[1], result[2], 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$] ; ... ; [$p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
+                    axis.plot(result[0], result[1], result[2], 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$] ; ... ; [$p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
             else:
                 if dimensional_space == '2D':
                     plt.plot(result[0], result[1], 'r--', linewidth=2.5)
                 else:
-                    axis.plot3D(result[0], result[1], result[2], 'r--', linewidth=2.5)
+                    axis.plot(result[0], result[1], result[2], 'r--', linewidth=2.5)
 
     """
     Description:
@@ -84,12 +87,12 @@ def main():
                 if dimensional_space == '2D':
                     plt.plot(result[0], result[1], 'g--', label=r'Quadratic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$] ; ... ; [$p_{n - 2}$, $p_{n - 1}$, $p_{n}$]', linewidth=2.5)
                 else:
-                    axis.plot3D(result[0], result[1], result[2], 'g--', label=r'Quadratic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$] ; ... ; [$p_{n - 2}$, $p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
+                    axis.plot(result[0], result[1], result[2], 'g--', label=r'Quadratic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$] ; ... ; [$p_{n - 2}$, $p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
             else:
                 if dimensional_space == '2D':
                     plt.plot(result[0], result[1], 'g--', linewidth=2.5)
                 else:
-                    axis.plot3D(result[0], result[1], result[2], 'g--', linewidth=2.5)
+                    axis.plot(result[0], result[1], result[2], 'g--', linewidth=2.5)
 
     """
     Description:
@@ -103,12 +106,12 @@ def main():
                 if dimensional_space == '2D':
                     plt.plot(result[0], result[1], 'b--', label=r'Cubic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$, $p_{3}$] ; ... ; [$p_{n - 3}$, $p_{n - 2}$, $p_{n - 1}$, $p_{n}$]', linewidth=2.5)
                 else:
-                    axis.plot3D(result[0], result[1], result[2], 'b--', label=r'Cubic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$, $p_{3}$] ; ... ; [$p_{n - 3}$, $p_{n - 2}$, $p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
+                    axis.plot(result[0], result[1], result[2], 'b--', label=r'Cubic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$, $p_{3}$] ; ... ; [$p_{n - 3}$, $p_{n - 2}$, $p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
             else:
                 if dimensional_space == '2D':
                     plt.plot(result[0], result[1], 'b--', linewidth=2.5)
                 else:
-                    axis.plot3D(result[0], result[1], result[2], 'b--', linewidth=2.5)
+                    axis.plot(result[0], result[1], result[2], 'b--', linewidth=2.5)
 
     """
     Description:
@@ -121,14 +124,14 @@ def main():
         if dimensional_space == '2D':
             plt.plot(result[0], result[1], 'm--', label=r'N-Degree Bezier Curve: [$p_{0}$, $p_{1}$, ... , $p_{n - 1}$, $p_{n}$]', linewidth=2.5)
         elif dimensional_space == '3D':
-            axis.plot3D(result[0], result[1], result[2], 'm--', label=r'N-Degree Bezier Curve: [$p_{0}$, $p_{1}$, ... , $p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
+            axis.plot(result[0], result[1], result[2], 'm--', label=r'N-Degree Bezier Curve: [$p_{0}$, $p_{1}$, ... , $p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
 
     if dimensional_space == '2D':
         for _, point in enumerate(points):
             plt.plot(point[0], point[1], marker = 'o', ms = 15, mfc = [1,1,1], markeredgecolor = [0,0,0], mew = 5)
     elif dimensional_space == '3D':
         for _, point in enumerate(points):
-            plt.plot(point[0], point[1], point[2], marker = 'o', ms = 15, mfc = [1,1,1], markeredgecolor = [0,0,0], mew = 5)
+            axis.scatter(point[0], point[1], point[2], marker = 'o', color = [1,1,1], edgecolors = [0,0,0], linewidths=2.5)
 
     # Set additional features for successful display of the Bézier curves.
     plt.grid()

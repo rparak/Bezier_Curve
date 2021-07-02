@@ -27,11 +27,13 @@ File Name: bezier_curve_example_3d.py
 
 # System (Default Lib.)
 import sys
+
 # Numpy (Array computing Lib.) [pip3 install numpy]
 import numpy as np
+
 # Mtaplotlib (Visualization Lib.) [pip3 install matplotlib]
 import matplotlib.pyplot as plt
-
+from mpl_toolkits.mplot3d import axes3d
 
 class bezier_ctrl(object):
     """
@@ -52,7 +54,7 @@ class bezier_ctrl(object):
         # Display (Plot) variable.
         self.__plt  = plt
         # Axis (3D)
-        self.__axis = self.__plt.axes(projection='3d')
+        _, self.__axis = self.__plt.subplots(subplot_kw={"projection": "3d"})
 
     @staticmethod
     def __linear_curve(p_0, p_1, t):
@@ -222,7 +224,7 @@ class bezier_ctrl(object):
         x, y, z = self.__linear_curve(self.p[0], self.p[1], self.t)
 
         # Display the Linear Bézier Curve p(t) -> x, y, z
-        self.__axis.plot3D(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]' , linewidth=2.5)
+        self.__axis.plot(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]' , linewidth=2.5)
 
     def __three_points(self):
         """
@@ -234,13 +236,13 @@ class bezier_ctrl(object):
             x, y, z = self.__linear_curve(self.p[i], self.p[i + 1], self.t)
             
             if i == (len(self.p) - 1) - 1:
-                self.__axis.plot3D(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]' , linewidth=2.5)
+                self.__axis.plot(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]' , linewidth=2.5)
             else:
-                self.__axis.plot3D(x, y, z, 'r--', linewidth=2.5)
+                self.__axis.plot(x, y, z, 'r--', linewidth=2.5)
 
         x, y, z = self.__quadratic_curve(self.p[0], self.p[1], self.p[2], self.t)
 
-        self.__axis.plot3D(x, y, z, 'g--', label=r'Quadratic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$]', linewidth=2.5)
+        self.__axis.plot(x, y, z, 'g--', label=r'Quadratic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$]', linewidth=2.5)
 
     def __four_points(self):
         """
@@ -252,21 +254,21 @@ class bezier_ctrl(object):
             x, y, z  = self.__linear_curve(self.p[i], self.p[i + 1], self.t)
             
             if i == (len(self.p) - 1) - 1:
-                self.__axis.plot3D(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; [$p_{2}$, $p_{3}$]' , linewidth=2.5)
+                self.__axis.plot(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; [$p_{2}$, $p_{3}$]' , linewidth=2.5)
             else:
-                self.__axis.plot3D(x, y, z, 'r--', linewidth=2.5)
+                self.__axis.plot(x, y, z, 'r--', linewidth=2.5)
 
         for i in range(len(self.p) - 2):
             x, y, z = self.__quadratic_curve(self.p[i], self.p[i + 1], self.p[i + 2], self.t)
 
             if i == (len(self.p) - 2) - 1:
-                self.__axis.plot3D(x, y, z, 'g--', label=r'Quadratic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$]; [$p_{1}$, $p_{2}$, $p_{3}$]', linewidth=2.5)
+                self.__axis.plot(x, y, z, 'g--', label=r'Quadratic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$]; [$p_{1}$, $p_{2}$, $p_{3}$]', linewidth=2.5)
             else:
-                self.__axis.plot3D(x, y, z, 'g--', linewidth=2.5)
+                self.__axis.plot(x, y, z, 'g--', linewidth=2.5)
 
         x, y, z = self.__cubic_curve(self.p[0], self.p[1], self.p[2], self.p[3], self.t)
 
-        self.__axis.plot3D(x, y, z, 'b--', label=r'Cubic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$, $p_{3}$]', linewidth=2.5)
+        self.__axis.plot(x, y, z, 'b--', label=r'Cubic Bezier Curve: [$p_{0}$, $p_{1}$, $p_{2}$, $p_{3}$]', linewidth=2.5)
 
     @staticmethod
     def __path_simplification(p, simplification_factor):
@@ -320,9 +322,9 @@ class bezier_ctrl(object):
             x, y, z  = self.__linear_curve(self.p[i], self.p[i + 1], self.t)
             
             if i == (len(self.p) - 1) - 1:
-                self.__axis.plot3D(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; ... ; [$p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
+                self.__axis.plot(x, y, z, 'r--', label=r'Linear Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; ... ; [$p_{n - 1}$, $p_{n}$]' , linewidth=2.5)
             else:
-                self.__axis.plot3D(x, y, z, 'r--', linewidth=2.5)
+                self.__axis.plot(x, y, z, 'r--', linewidth=2.5)
 
         # Number of points in array
         n = len(self.p) - 1
@@ -347,7 +349,7 @@ class bezier_ctrl(object):
             y += y_aux
             z += z_aux
 
-        self.__axis.plot3D(x, y, z, 'b--', label=r'N-Degree Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; ... ; [$p_{n - 1}$, $p_{n}$]', linewidth=2.5)
+        self.__axis.plot(x, y, z, 'b--', label=r'N-Degree Bezier Curve: [$p_{0}$, $p_{1}$]; [$p_{1}$, $p_{2}$]; ... ; [$p_{n - 1}$, $p_{n}$]', linewidth=2.5)
 
     def __display_aux_result(self):
         """
@@ -359,9 +361,9 @@ class bezier_ctrl(object):
             self.__axis.text(self.p[i][0] + 0.01, self.p[i][1] + 0.01, self.p[i][2] + 0.01, '$p_{' + str(i) + '}$ = [' + str(self.p[i][0]) + ', ' + str(self.p[i][1]) + ', ' + str(self.p[i][2]) + ']', fontsize=20)
 
             if i != len(self.p) - 1:
-                self.__axis.plot3D(self.p[i][0], self.p[i][1], self.p[i][2], marker = 'o', ms = 15, mfc = [1,1,1], markeredgecolor = [0,0,0], mew = 5)
+                self.__axis.scatter(self.p[i][0], self.p[i][1], self.p[i][2], marker = 'o', color = [1,1,1], edgecolors = [0,0,0], linewidths=2.5)
             else:
-                self.__axis.plot3D(self.p[i][0], self.p[i][1], self.p[i][2], label=self.__switch_dCtrl(len(self.p)), marker = 'o', ms = 15, mfc = [1,1,1], markeredgecolor = [0,0,0], mew = 5)
+                self.__axis.scatter(self.p[i][0], self.p[i][1], self.p[i][2], label=self.__switch_dCtrl(len(self.p)), marker = 'o', color = [1,1,1], edgecolors = [0,0,0], linewidths=2.5)
 
     def display_result(self):
         """
@@ -389,7 +391,7 @@ class bezier_ctrl(object):
                 self.__four_points()
             else:
                 self.__n_points()
-
+            
             # Set additional features for successful display of the Bézier curves.
             self.__plt.grid()
             self.__axis.set_xlabel('x axis [Unit]', fontsize = 20, fontweight ='normal')

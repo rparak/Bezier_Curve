@@ -27,8 +27,10 @@ File Name: bezier_curve_example_2d.py
 
 # System (Default Lib.)
 import sys
+
 # Numpy (Array computing Lib.) [pip3 install numpy]
 import numpy as np
+
 # Mtaplotlib (Visualization Lib.) [pip3 install matplotlib]
 import matplotlib.pyplot as plt
 
