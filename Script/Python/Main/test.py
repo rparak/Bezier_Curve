@@ -1,7 +1,7 @@
 """
 ## =========================================================================== ## 
 MIT License
-Copyright (c) 2020 Roman Parak
+Copyright (c) 2021 Roman Parak
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -28,20 +28,23 @@ File Name: test.py
 # System (Default Lib.)
 import sys
 
+# Numpy (Array computing Lib.) [pip3 install numpy]
+import numpy as np
+
 # Mtaplotlib (Visualization Lib.) [pip3 install matplotlib]
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 
 # Own library for Bézier curve calculation
-from bezier_curve import bezier_ctrl
+import Bezier
 
 def main():
     # Select one of these options: '2D', '3D' {Dimensional Space}
     dimensional_space = '3D'
-
+    
     # Visibility of curves
-    visible_linear, visible_quadratic, visible_cubic, visible_auto = True, False, False, False
-
+    visible_linear, visible_quadratic, visible_cubic, visible_auto = True, True, True, True
+    
     if dimensional_space == '2D':
         points = [[1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]]
     else:
@@ -54,15 +57,19 @@ def main():
     Input:
         (1) Time Step  [INT]
     """
-    bezier = bezier_ctrl(100)
-    
+    ts          = 100
+    Bezier_Ndeg = Bezier.N_Degree(ts)
+
+    # Time t ∈ [0, 1]
+    time = np.linspace(0.0, 1.0, ts)
+
     """
     Description:
         1\ Calculation and display the Linear Bézier Curve p(t).
     """
     if visible_linear == True:
         for i in range(len(points) - 1):
-            result = bezier.linear_curve([points[i], points[i + 1]])
+            result = Bezier.Linear(time, [points[i], points[i + 1]])
             
             if i == (len(points) - 1) - 1:
                 if dimensional_space == '2D':
@@ -81,7 +88,7 @@ def main():
     """
     if visible_quadratic == True:
         for i in range(len(points) - 2):
-            result = bezier.quadratic_curve([points[i], points[i + 1], points[i + 2]])
+            result = Bezier.Quadratic(time, [points[i], points[i + 1], points[i + 2]])
             
             if i == (len(points) - 2) - 1:
                 if dimensional_space == '2D':
@@ -100,7 +107,7 @@ def main():
     """
     if visible_cubic == True:
         for i in range(len(points) - 3):
-            result = bezier.cubic_curve([points[i], points[i + 1], points[i + 2], points[i + 3]])
+            result = Bezier.Cubic(time, [points[i], points[i + 1], points[i + 2], points[i + 3]])
             
             if i == (len(points) - 3) - 1:
                 if dimensional_space == '2D':
@@ -118,7 +125,7 @@ def main():
         4\ Automatic Curve Calculation (Result of the calculation) -> depends on the simplification factor
     """
     if visible_auto == True:
-        result = bezier.auto(points, 1)
+        result = Bezier_Ndeg.Solve(points, 1)
 
         # Display the N-Degree Bézier Curve p(t)
         if dimensional_space == '2D':
