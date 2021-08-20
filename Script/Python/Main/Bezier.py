@@ -28,107 +28,142 @@ File Name: bezier_curve.py
 # Numpy (Array computing Lib.) [pip3 install numpy]
 import numpy as np
 
-def linear_curve(self, p):
+# Support for type hints
+import typing
+
+# Initialization of constants
+CONST_NUM_OF_ENTRY_POINTS_LINEAR    = 2
+CONST_NUM_OF_ENTRY_POINTS_QUADRATIC = 3
+CONST_NUM_OF_ENTRY_POINTS_CUBIC     = 4
+
+def Linear(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
     """
     Description:
-        Given two control points p_{0} and p_{1} we define the linear Bezier curve to be the curve parametrized by:
+        Given two control points p_{0} and p_{1} we define the linear Bézier curve to be the curve parametrized by:
 
         p(t) = (1 - t)*p_{0} + t*p_{1}, t ∈ [0, 1]
 
     Args:
-        (1) points [p_{0, 1}] [Float Matrix]: Multiple points to create a curve.
+        (1) t [Int/Float Array]: Time t ∈ [0, 1].
+        (2) points [p_{0, 1}] [Int/Float Matrix]: Multiple points to create a curve.
 
     Returns:
-        (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
+        (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
+
+    Example:
+        Initialization Time:
+            t   = np.linspace(0.0, 1.0, 100), 
+                where 100 is the number of time steps
+        Calculation:
+            res = Linear(t, p),
+                where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1]] in 2D space 
+                and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1]] in 3D space
     """
+    try:
+        assert len(p) == CONST_NUM_OF_ENTRY_POINTS_LINEAR
 
-    return [(1 - self.t) * point[0] + self.t * point[1] 
-            for _, point in enumerate(np.transpose(p))]
+        return [(1 - t) * point[0] + t * point[1] 
+                for _, point in enumerate(np.transpose(p))]
 
-class bezier_ctrl(object):
+    except AssertionError as error:
+        print('[ERROR] Insufficient number of entry points.')
+
+def Quadratic(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
     """
     Description:
-        A Bézier curve is a parametric curve used in computer graphics and related fields.
+         Given three control points p_{0}, p_{1} and p_{2} we define the quadratic Bézier curve (degree 2 Bézier curve)
+        to be the curve parametrized by:
 
-        The class shows several types of Bézier curves (Linear, Quadratic, Cubic, N-Degree).
+        p(t) = ((1 - t)^2)*p_{0} + 2*t*(1 - t)*p_{1} + (t^2)*p_{2}, t ∈ [0, 1]
+
+    Args:
+        (1) t [Int/Float Array]: Time t ∈ [0, 1].
+        (2) points [p_{0, 1, 2}] [Int/Float Matrix]: Multiple points to create a curve.
+
+    Returns:
+         (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
+
+    Example:
+        Initialization Time:
+            t   = np.linspace(0.0, 1.0, 100), 
+                where 100 is the number of time steps
+        Calculation:
+            res = Quadratic(t, p),
+                where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1], [px_id_2, py_id_2]] in 2D space 
+                and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1], [px_id_2, py_id_2, pz_id_2]] in 3D space
+    """
+
+    try:
+        assert len(p) == CONST_NUM_OF_ENTRY_POINTS_QUADRATIC
+
+        return [(1 - t)**2 * point[0] + 2 * t * (1 - t) * point[1] + t**2 * point[2] 
+                for _, point in enumerate(np.transpose(p))]
+
+    except AssertionError as error:
+        print('[ERROR] Insufficient number of entry points.')
+
+def Cubic(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
+    """
+    Description:
+        Given four control points p_{0}, p_{1}, p_{2} and p_{3} we define the cubic Bézier curve (degree 3 Bézier curve) to
+        be the curve parametrized by:
+
+        p(t) = ((1 - t)^3)*p_{0} + 3*t*((1 - t)^2)*p_{1} + (3*t^2)*(1 - t)*p_{2} + (t^3) * p_{3}, t ∈ [0, 1]
+
+    Args:
+        (1) t [Int/Float Array]: Time t ∈ [0, 1].
+        (2) points [p_{0, 1, 2, 3}] [Int/Float Matrix]: Multiple points to create a curve.
+
+    Returns:
+        (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
+
+    Example:
+        Initialization Time:
+            t   = np.linspace(0.0, 1.0, 100), 
+                where 100 is the number of time steps
+        Calculation:
+            res = Cubic(t, p),
+                where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1], [px_id_2, py_id_2], [px_id_3, py_id_3]] in 2D space 
+                and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1], [px_id_2, py_id_2, pz_id_2], [px_id_3, py_id_3, pz_id_2]] in 3D space
+    """
+    try:
+        assert len(p) == CONST_NUM_OF_ENTRY_POINTS_CUBIC
+
+        return [((1 - t)**3) * (point[0]) + (3 * t * (1 - t)**2) * (point[1]) + 3 * (t**2) * (1 - t) * point[2] + (t**3) * point[3] 
+                for _, point in enumerate(np.transpose(p))]
+
+    except AssertionError as error:
+        print('[ERROR] Insufficient number of entry points.')
+
+class N_Degree(object):
+    """
+    Description:
+        Class for efficient solution of N-degree Bézier curve.
+
+        Note:
+            A Bézier curve is a parametric curve used in computer graphics and related fields.
 
     Initialization of the Class:
-
         Input:
             (1) Time Step  [INT]
 
         Example:
             Initialization:
-                cls = bezier_ctrl(100)
+                Cls = N_Degree(ts)
             Calculation:
-                res = cls.linear_curve(points)
-                res = cls.quadratic_curve(points)
-                res = cls.cubic_curve(points)
-                res = cls.auto(points, simplification_factor)
+                res = Cls.Solve(p, simplification_factor)
             
-            where the points are equal to [[1.0, 1.0], [1.25, 2.0]] in 2D space and [[1.0, 1.0], [1.25, 2.0], [1.75, 2.0]] in 3D space
+            where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], .., [px_id_n, py_id_n]] in 2D space 
+                and [[px_id_0, py_id_0, pz_id_0], .., [px_id_n, py_id_n, pz_id_n]] in 3D space
     """
 
-    def __init__(self, step):
+    def __init__(self, step: typing.Union[int]) -> None:
         # << PUBLIC >> #
         # Time t ∈ [0, 1]
         self.t = np.linspace(0.0, 1.0, step)
         # << PRIVATE >> #
         # Points [Float Matrix]
         self.__p = []
-
-    def linear_curve(self, p):
-        """
-        Description:
-            Given two control points p_{0} and p_{1} we define the linear Bezier curve to be the curve parametrized by:
-
-            p(t) = (1 - t)*p_{0} + t*p_{1}, t ∈ [0, 1]
-
-        Args:
-            (1) points [p_{0, 1}] [Float Matrix]: Multiple points to create a curve.
-
-        Returns:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
-        """
-
-        return [(1 - self.t) * point[0] + self.t * point[1] 
-                for _, point in enumerate(np.transpose(p))]
-
-    def quadratic_curve(self, p):
-        """
-        Description:
-            Given three control points p_{0}, p_{1} and p_{2} we define the quadratic Bezier curve (degree 2 Bezier curve)
-            to be the curve parametrized by:
-
-            p(t) = ((1 - t)^2)*p_{0} + 2*t*(1 - t)*p_{1} + (t^2)*p_{2}, t ∈ [0, 1]
-
-        Args:
-            (1) points [p_{0, 1, 2}] [Float Matrix]: Multiple points to create a curve.
-
-        Returns:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
-        """
-
-        return [(1 - self.t)**2 * point[0] + 2 * self.t * (1 - self.t) * point[1] + self.t**2 * point[2] 
-                for _, point in enumerate(np.transpose(p))]   
-
-    def cubic_curve(self, p):
-        """
-        Description:
-            Given four control points p_{0}, p_{1}, p_{2} and p_{3} we define the cubic Bezier curve (degree 3 Bezier curve) to
-            be the curve parametrized by:
-
-            p(t) = ((1 - t)^3)*p_{0} + 3*t*((1 - t)^2)*p_{1} + (3*t^2)*(1 - t)*p_{2} + (t^3) * p_{3}, t ∈ [0, 1]
-
-        Args:
-            (1) points [p_{0, 1, 2, 3}] [Float Matrix]: Multiple points to create a curve.
-
-        Returns:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
-        """
-
-        return [((1 - self.t)**3) * (point[0]) + (3 * self.t * (1 - self.t)**2) * (point[1]) + 3 * (self.t**2) * (1 - self.t) * point[2] + (self.t**3) * point[3] 
-                for _, point in enumerate(np.transpose(p))]
 
     @staticmethod
     def __binomial_coefficient(n, k):
@@ -174,12 +209,12 @@ class bezier_ctrl(object):
 
         Args:
             (1) idx [INT]: Iteration.
-            (2) p [Float Matrix]: Point (2D/3D) in interation (i).
+            (2) p [Int/Float Matrix]: Point (2D/3D) in interation (i).
             (3) n [INT]: Number of points.
             (4) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
 
         Returns:
-            (1) parameter{1 .. self.__num_of_dimensions} [Float Matrix]: Results of curve values in iteration (i).
+            (1) parameter{1 .. self.__num_of_dimensions} [Int/Float Matrix]: Results of curve values in iteration (i).
         """
 
         return [c_ni * (self.t**idx) * ((1 - self.t)**(n - idx)) * point 
@@ -210,7 +245,7 @@ class bezier_ctrl(object):
             (1) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
-            (1) parameter{1} [Float Matrix]: New simplified matrix of points to create a curve.
+            (1) parameter{1} [Int/Float Matrix]: New simplified matrix of points to create a curve.
 
         """
 
@@ -227,7 +262,7 @@ class bezier_ctrl(object):
 
         return p_aux
 
-    def __n_points(self):
+    def __n_degree(self):
         """
         Description: 
             The main control function for creating a Bézier curve of degree n.
@@ -255,17 +290,17 @@ class bezier_ctrl(object):
             
         return result
 
-    def auto(self, points, simplification_factor):
+    def Solve(self, points: typing.Union[typing.List[int], typing.List[float]], simplification_factor: typing.Union[int]) -> typing.Union[typing.List[int], typing.List[float]]:
         """
         Description:
-            Function of automatic calculation of individual Bézier curves. 
-            
+            Function for automatic calculation of a suitably selected Bézier curve.
+
         Args:
-            (1) points [p_{0, .., n}] [Float Matrix]: Multiple points to create a curve.
+            (1) points [p_{0, .., n}] [Int/Float Matrix]: Multiple points to create a curve.
             (2) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
-            (1) parameter{0 .. Number of dimensions - 1} [Float Matrix]: Results of curve values.
+            (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
         """
 
         try:
@@ -281,13 +316,13 @@ class bezier_ctrl(object):
 
             # Selects the calculation method based on the number of points in the matrix (p).
             if len(self.__p) > 4:
-                return self.__n_points()
+                return self.__n_degree()
             if len(self.__p) == 4:
-                return self.cubic_curve(self.__p)
+                return Cubic(self.__p)
             elif len(self.__p) == 3:
-                return self.quadratic_curve(self.__p)
+                return Quadratic(self.__p)
             elif len(self.__p) == 2:
-                return self.linear_curve(self.__p)
+                return Linear(self.t, self.__p)
 
         except AssertionError as error:
             print('[ERROR] Insufficient number of entry points.')
