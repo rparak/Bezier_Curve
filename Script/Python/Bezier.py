@@ -52,7 +52,7 @@ def Linear(num_of_samples: typing.Union[int], points: typing.Union[typing.List[i
         (2) points [p_{0, 1}] [Int/Float Matrix]: Multiple points to create a curve.
 
     Returns:
-        (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
+        (1) parameter [{0 .. Number of dimensions - 1}] [Int/Float Matrix]: Resulting points of the curve.
 
     Example:
         res = Linear(num_of_samples, points),
@@ -61,6 +61,7 @@ def Linear(num_of_samples: typing.Union[int], points: typing.Union[typing.List[i
     """
     try:
         assert len(points) == CONST_NUM_OF_ENTRY_POINTS_LINEAR
+        assert(num_of_samples >= 0)
 
         # Return evenly spaced numbers over a specified interval.
         t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
@@ -70,6 +71,8 @@ def Linear(num_of_samples: typing.Union[int], points: typing.Union[typing.List[i
 
     except AssertionError as error:
         print('[ERROR] Insufficient number of entry points.')
+        print('[ERROR] The correct number of entry points is %d.' % CONST_NUM_OF_ENTRY_POINTS_LINEAR)
+        print('[ERROR] The number of samples must not be negative.')
 
 def Quadratic(num_of_samples: typing.Union[int], points: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
     """
@@ -84,7 +87,7 @@ def Quadratic(num_of_samples: typing.Union[int], points: typing.Union[typing.Lis
         (2) points [p_{0, 1, 2}] [Int/Float Matrix]: Multiple points to create a curve.
 
     Returns:
-         (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
+         (1) parameter [{0 .. Number of dimensions - 1}] [Int/Float Matrix]: Resulting points of the curve.
 
     Example:
         res = Quadratic(t, p),
@@ -94,6 +97,7 @@ def Quadratic(num_of_samples: typing.Union[int], points: typing.Union[typing.Lis
 
     try:
         assert len(points) == CONST_NUM_OF_ENTRY_POINTS_QUADRATIC
+        assert(num_of_samples >= 0)
 
         # Return evenly spaced numbers over a specified interval.
         t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
@@ -103,6 +107,8 @@ def Quadratic(num_of_samples: typing.Union[int], points: typing.Union[typing.Lis
 
     except AssertionError as error:
         print('[ERROR] Insufficient number of entry points.')
+        print('[ERROR] The correct number of entry points is %d.' % CONST_NUM_OF_ENTRY_POINTS_QUADRATIC)
+        print('[ERROR] The number of samples must not be negative.')
 
 def Cubic(num_of_samples: typing.Union[int], points: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
     """
@@ -117,7 +123,7 @@ def Cubic(num_of_samples: typing.Union[int], points: typing.Union[typing.List[in
         (2) points [p_{0, 1, 2, 3}] [Int/Float Matrix]: Multiple points to create a curve.
 
     Returns:
-        (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
+        (1) parameter [{0 .. Number of dimensions - 1}] [Int/Float Matrix]: Resulting points of the curve.
 
     Example:
         res = Cubic(t, p),
@@ -126,6 +132,7 @@ def Cubic(num_of_samples: typing.Union[int], points: typing.Union[typing.List[in
     """
     try:
         assert len(points) == CONST_NUM_OF_ENTRY_POINTS_CUBIC
+        assert(num_of_samples >= 0)
 
         # Return evenly spaced numbers over a specified interval.
         t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
@@ -135,6 +142,8 @@ def Cubic(num_of_samples: typing.Union[int], points: typing.Union[typing.List[in
 
     except AssertionError as error:
         print('[ERROR] Insufficient number of entry points.')
+        print('[ERROR] The correct number of entry points is %d.' % CONST_NUM_OF_ENTRY_POINTS_CUBIC)
+        print('[ERROR] The number of samples must not be negative.')
 
 class N_Degree(object):
     """
@@ -160,8 +169,15 @@ class N_Degree(object):
 
     def __init__(self, num_of_samples: typing.Union[int]) -> None:
         # << PUBLIC >> #
-        # Return evenly spaced numbers over a specified interval.
-        self.t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
+        try:
+            assert(num_of_samples >= 0)
+
+            # Return evenly spaced numbers over a specified interval.
+            self.t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
+
+        except AssertionError as error:
+            print('[ERROR] The number of samples must not be negative.')
+
         # << PRIVATE >> #
         # Points [Float Matrix]
         self.__points = []
@@ -270,6 +286,9 @@ class N_Degree(object):
         """
         Description: 
             The main control function for creating a Bézier curve of degree n.
+
+        Returns:
+            (1) parameter [{0 .. Number of dimensions - 1}] [Int/Float Matrix]: Resulting points of the curve.
         """
         
         # Number of points in matrix
@@ -304,7 +323,7 @@ class N_Degree(object):
             (2) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
-            (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
+            (1) parameter [{0 .. Number of dimensions - 1}] [Int/Float Matrix]: Resulting points of the curve.
         """
 
         try:
@@ -330,4 +349,4 @@ class N_Degree(object):
 
         except AssertionError as error:
             print('[ERROR] Insufficient number of entry points.')
-            print('[ERROR] The minimum number of entry points is 2.')
+            print('[ERROR] The minimum number of entry points is %d.' % CONST_NUM_OF_ENTRY_POINTS_LINEAR)
