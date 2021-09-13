@@ -21,9 +21,9 @@ Python, C++
  ┣ 📂PDF
  ┃ ┗ 📜Bezier_Curves.pdf  # Brief presentation of Bézier curves
  ┣ 📂Script
- ┃ ┗ 📂Python             # Main Class (2D, 3D Bézier curves) + Test Script
- ┃ ┃ ┣ 📜Bezier.py
- ┃ ┃ ┗ 📜test.py
+ ┃ ┗ 📂Python           
+ ┃ ┃ ┣ 📜Bezier.py        # Main Class (2D, 3D Bézier curves)
+ ┃ ┃ ┗ 📜test.py          # Test Script
  ┣ 📜LICENSE
  ┗ 📜README.md
 ```
