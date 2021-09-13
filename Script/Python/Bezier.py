@@ -1,7 +1,7 @@
 """
 ## =========================================================================== ## 
 MIT License
-Copyright (c) 2020 Roman Parak
+Copyright (c) 2021 Roman Parak
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -21,7 +21,7 @@ SOFTWARE.
 Author   : Roman Parak
 Email    : Roman.Parak@outlook.com
 Github   : https://github.com/rparak
-File Name: bezier_curve.py
+File Name: Bezier.py
 ## =========================================================================== ## 
 """
 
@@ -35,8 +35,12 @@ import typing
 CONST_NUM_OF_ENTRY_POINTS_LINEAR    = 2
 CONST_NUM_OF_ENTRY_POINTS_QUADRATIC = 3
 CONST_NUM_OF_ENTRY_POINTS_CUBIC     = 4
+# Time t ∈ [0: The starting value of the sequence, 
+#           1: The end value of the sequence]
+CONST_T_START = 0
+CONST_T_STOP  = 1
 
-def Linear(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
+def Linear(num_of_samples: typing.Union[int], points: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
     """
     Description:
         Given two control points p_{0} and p_{1} we define the linear Bézier curve to be the curve parametrized by:
@@ -44,65 +48,63 @@ def Linear(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Unio
         p(t) = (1 - t)*p_{0} + t*p_{1}, t ∈ [0, 1]
 
     Args:
-        (1) t [Int/Float Array]: Time t ∈ [0, 1].
+        (1) num_of_samples [INT]: Number of samples to generate. Must be non-negative.
         (2) points [p_{0, 1}] [Int/Float Matrix]: Multiple points to create a curve.
 
     Returns:
         (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
 
     Example:
-        Initialization Time:
-            t   = np.linspace(0.0, 1.0, 100), 
-                where 100 is the number of time steps
-        Calculation:
-            res = Linear(t, p),
-                where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1]] in 2D space 
-                and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1]] in 3D space
+        res = Linear(num_of_samples, points),
+            where points are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1]] in 2D space 
+            and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1]] in 3D space
     """
     try:
-        assert len(p) == CONST_NUM_OF_ENTRY_POINTS_LINEAR
+        assert len(points) == CONST_NUM_OF_ENTRY_POINTS_LINEAR
 
-        return [(1 - t) * point[0] + t * point[1] 
-                for _, point in enumerate(np.transpose(p))]
+        # Return evenly spaced numbers over a specified interval.
+        t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
+
+        return [(1 - t) * p[0] + t * p[1] 
+                for _, p in enumerate(np.transpose(points))]
 
     except AssertionError as error:
         print('[ERROR] Insufficient number of entry points.')
 
-def Quadratic(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
+def Quadratic(num_of_samples: typing.Union[int], points: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
     """
     Description:
-         Given three control points p_{0}, p_{1} and p_{2} we define the quadratic Bézier curve (degree 2 Bézier curve)
+        Given three control points p_{0}, p_{1} and p_{2} we define the quadratic Bézier curve (degree 2 Bézier curve)
         to be the curve parametrized by:
 
         p(t) = ((1 - t)^2)*p_{0} + 2*t*(1 - t)*p_{1} + (t^2)*p_{2}, t ∈ [0, 1]
 
     Args:
-        (1) t [Int/Float Array]: Time t ∈ [0, 1].
+        (1) num_of_samples [INT]: Number of samples to generate. Must be non-negative.
         (2) points [p_{0, 1, 2}] [Int/Float Matrix]: Multiple points to create a curve.
 
     Returns:
          (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
 
     Example:
-        Initialization Time:
-            t   = np.linspace(0.0, 1.0, 100), 
-                where 100 is the number of time steps
-        Calculation:
-            res = Quadratic(t, p),
-                where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1], [px_id_2, py_id_2]] in 2D space 
-                and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1], [px_id_2, py_id_2, pz_id_2]] in 3D space
+        res = Quadratic(t, p),
+            where points are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1], [px_id_2, py_id_2]] in 2D space 
+            and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1], [px_id_2, py_id_2, pz_id_2]] in 3D space
     """
 
     try:
-        assert len(p) == CONST_NUM_OF_ENTRY_POINTS_QUADRATIC
+        assert len(points) == CONST_NUM_OF_ENTRY_POINTS_QUADRATIC
 
-        return [(1 - t)**2 * point[0] + 2 * t * (1 - t) * point[1] + t**2 * point[2] 
-                for _, point in enumerate(np.transpose(p))]
+        # Return evenly spaced numbers over a specified interval.
+        t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
+
+        return [(1 - t)**2 * p[0] + 2 * t * (1 - t) * p[1] + t**2 * p[2] 
+                for _, p in enumerate(np.transpose(points))]
 
     except AssertionError as error:
         print('[ERROR] Insufficient number of entry points.')
 
-def Cubic(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
+def Cubic(num_of_samples: typing.Union[int], points: typing.Union[typing.List[int], typing.List[float]]) -> typing.Union[typing.List[int], typing.List[float]]: 
     """
     Description:
         Given four control points p_{0}, p_{1}, p_{2} and p_{3} we define the cubic Bézier curve (degree 3 Bézier curve) to
@@ -111,26 +113,25 @@ def Cubic(t: typing.Union[typing.List[int], typing.List[float]], p: typing.Union
         p(t) = ((1 - t)^3)*p_{0} + 3*t*((1 - t)^2)*p_{1} + (3*t^2)*(1 - t)*p_{2} + (t^3) * p_{3}, t ∈ [0, 1]
 
     Args:
-        (1) t [Int/Float Array]: Time t ∈ [0, 1].
+        (1) num_of_samples [INT]: Number of samples to generate. Must be non-negative.
         (2) points [p_{0, 1, 2, 3}] [Int/Float Matrix]: Multiple points to create a curve.
 
     Returns:
         (1) parameter{0 .. Number of dimensions - 1} [Int/Float Matrix]: Resulting points of the curve.
 
     Example:
-        Initialization Time:
-            t   = np.linspace(0.0, 1.0, 100), 
-                where 100 is the number of time steps
-        Calculation:
-            res = Cubic(t, p),
-                where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1], [px_id_2, py_id_2], [px_id_3, py_id_3]] in 2D space 
-                and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1], [px_id_2, py_id_2, pz_id_2], [px_id_3, py_id_3, pz_id_2]] in 3D space
+        res = Cubic(t, p),
+            where points are equal to [[px_id_0, py_id_0], [px_id_1, py_id_1], [px_id_2, py_id_2], [px_id_3, py_id_3]] in 2D space 
+            and [[px_id_0, py_id_0, pz_id_0], [px_id_1, py_id_1, pz_id_1], [px_id_2, py_id_2, pz_id_2], [px_id_3, py_id_3, pz_id_2]] in 3D space
     """
     try:
-        assert len(p) == CONST_NUM_OF_ENTRY_POINTS_CUBIC
+        assert len(points) == CONST_NUM_OF_ENTRY_POINTS_CUBIC
 
-        return [((1 - t)**3) * (point[0]) + (3 * t * (1 - t)**2) * (point[1]) + 3 * (t**2) * (1 - t) * point[2] + (t**3) * point[3] 
-                for _, point in enumerate(np.transpose(p))]
+        # Return evenly spaced numbers over a specified interval.
+        t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
+
+        return [((1 - t)**3) * (p[0]) + (3 * t * (1 - t)**2) * (p[1]) + 3 * (t**2) * (1 - t) * p[2] + (t**3) * p[3] 
+                for _, p in enumerate(np.transpose(points))]
 
     except AssertionError as error:
         print('[ERROR] Insufficient number of entry points.')
@@ -145,25 +146,27 @@ class N_Degree(object):
 
     Initialization of the Class:
         Input:
-            (1) Time Step  [INT]
+            (1) num_of_samples [INT]: Number of samples to generate. Must be non-negative.
 
         Example:
             Initialization:
-                Cls = N_Degree(ts)
+                Cls = N_Degree(num_of_samples)
             Calculation:
                 res = Cls.Solve(p, simplification_factor)
             
-            where t ∈ [0, 1] and p are equal to [[px_id_0, py_id_0], .., [px_id_n, py_id_n]] in 2D space 
+            where p is equal to [[px_id_0, py_id_0], .., [px_id_n, py_id_n]] in 2D space 
                 and [[px_id_0, py_id_0, pz_id_0], .., [px_id_n, py_id_n, pz_id_n]] in 3D space
     """
 
-    def __init__(self, step: typing.Union[int]) -> None:
+    def __init__(self, num_of_samples: typing.Union[int]) -> None:
         # << PUBLIC >> #
-        # Time t ∈ [0, 1]
-        self.t = np.linspace(0.0, 1.0, step)
+        # Return evenly spaced numbers over a specified interval.
+        self.t = np.linspace(CONST_T_START, CONST_T_STOP, num_of_samples)
         # << PRIVATE >> #
         # Points [Float Matrix]
-        self.__p = []
+        self.__points = []
+        # Number of samples to generate
+        self.__num_of_samples = num_of_samples
 
     @staticmethod
     def __binomial_coefficient(n, k):
@@ -192,12 +195,14 @@ class N_Degree(object):
 
         # Calculation from the simplification equation
         for i in range(0, k):
-            c_nk *= (n - i) # numerator
-            c_nk /= (i + 1) # denumerator
+            # numerator
+            c_nk *= (n - i)
+            # denumerator 
+            c_nk /= (i + 1)
 
         return c_nk
 
-    def __n_index_curve(self, idx, p, n, c_ni):
+    def __n_index_curve(self, idx, point, n, c_ni):
         """
         Description:
             Given n + 1 control points p_{0}, p_{1},..., p_{n} we define the degree n Bezier curve to
@@ -209,7 +214,7 @@ class N_Degree(object):
 
         Args:
             (1) idx [INT]: Iteration.
-            (2) p [Int/Float Matrix]: Point (2D/3D) in interation (i).
+            (2) point [Int/Float Matrix]: Point (2D/3D) in interation (i).
             (3) n [INT]: Number of points.
             (4) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
 
@@ -217,11 +222,11 @@ class N_Degree(object):
             (1) parameter{1 .. self.__num_of_dimensions} [Int/Float Matrix]: Results of curve values in iteration (i).
         """
 
-        return [c_ni * (self.t**idx) * ((1 - self.t)**(n - idx)) * point 
-                for _, point in enumerate(p)]
+        return [c_ni * (self.t**idx) * ((1 - self.t)**(n - idx)) * p 
+                for _, p in enumerate(point)]
 
     @staticmethod
-    def __path_simplification(p, simplification_factor):
+    def __path_simplification(points, simplification_factor):
         """
         Description:
             Function to simplify the path through the simplification factor. The first and end points do not change, the others 
@@ -229,18 +234,17 @@ class N_Degree(object):
 
             Example:
                 Input Points: 
-                    p = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
+                    points = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
                 Number of points: 
                     n = 8
                 Simplification Factor:
-                    s_f           = 1
-                    p_aux (new p) = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
-                    n             = 8
-
-                    s_f           = 2
-                    p_aux (new p) = [1.0, 1.0], [None], [1.75, 2.0], [None], [1.0, -1.0], [None], [1.75, -2.0], [2.0, -1.0] 
-                    p_aux (new p) = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
-                    n             = 5
+                    s_f                     = 1
+                    points_aux (new points) = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
+                    n                  = 8
+                    s_f                = 2
+                    p_aux (new points) = [1.0, 1.0], [None], [1.75, 2.0], [None], [1.0, -1.0], [None], [1.75, -2.0], [2.0, -1.0] 
+                    p_aux (new points) = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
+                    n                  = 5
         Args:
             (1) simplification_factor [INT]: Simplification factor for the simplify the path.
 
@@ -249,18 +253,18 @@ class N_Degree(object):
 
         """
 
-        p_aux = []
+        points_aux = []
 
-        p_aux.append(p[0])
+        points_aux.append(points[0])
 
         for i in range(1, len(p) - 1):
             if i % simplification_factor == 0:
-                p_aux.append(p[i])
+                points_aux.append(p[i])
 
-        if p_aux[len(p_aux) - 1] != p[len(p) - 1]:
-            p_aux.append(p[len(p) - 1])
+        if points_aux[len(points_aux) - 1] != p[len(p) - 1]:
+            points_aux.append(points[len(points) - 1])
 
-        return p_aux
+        return points_aux
 
     def __n_degree(self):
         """
@@ -269,20 +273,20 @@ class N_Degree(object):
         """
         
         # Number of points in matrix
-        n = len(self.__p) - 1
+        n = len(self.__points) - 1
 
         # Calculation of binomial cooficient of the first iteration
         c_nk = self.__binomial_coefficient(n, 0)
 
         # Calculation of the first curve positions
-        result = self.__n_index_curve(0, self.__p[0], n, c_nk)
+        result = self.__n_index_curve(0, self.__points[0], n, c_nk)
 
         for i in range(1, n + 1):
             # Binomial cooficient in interation (i)
             c_nk = self.__binomial_coefficient(n, i)
 
             # Calculation positions in iteration (i)
-            aux_result = self.__n_index_curve(i, self.__p[i], n, c_nk)
+            aux_result = self.__n_index_curve(i, self.__points[i], n, c_nk)
 
             # The sum of all positions for the resulting Bézier curve
             for j in range(0, len(aux_result)):
@@ -310,19 +314,19 @@ class N_Degree(object):
             # coefficient is greater than or equal to 1, the program can choose another method and the principle of calculation will be faster.
             if simplification_factor > 1 and len(points) > 4:
                 # If the coefficient coefficient is greater than 1, simplify the path
-                self.__p = self.__path_simplification(points, simplification_factor)
+                self.__points = self.__path_simplification(points, simplification_factor)
             else:
-                self.__p = points
+                self.__points = points
 
             # Selects the calculation method based on the number of points in the matrix (p).
-            if len(self.__p) > 4:
+            if len(self.__points) > 4:
                 return self.__n_degree()
-            if len(self.__p) == 4:
-                return Cubic(self.__p)
-            elif len(self.__p) == 3:
-                return Quadratic(self.__p)
-            elif len(self.__p) == 2:
-                return Linear(self.t, self.__p)
+            if len(self.__points) == 4:
+                return Cubic(self.__num_of_samples, self.__points)
+            elif len(self.__points) == 3:
+                return Quadratic(self.__num_of_samples, self.__points)
+            elif len(self.__points) == 2:
+                return Linear(self.__num_of_samples, self.__points)
 
         except AssertionError as error:
             print('[ERROR] Insufficient number of entry points.')

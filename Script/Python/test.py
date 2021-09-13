@@ -55,13 +55,10 @@ def main():
     Initialization Bezier Class
     
     Input:
-        (1) Time Step  [INT]
+        (1) num_of_samples [INT]: Number of samples to generate. Must be non-negative.
     """
-    ts          = 100
-    Bezier_Ndeg = Bezier.N_Degree(ts)
-
-    # Time t ∈ [0, 1]
-    time = np.linspace(0.0, 1.0, ts)
+    num_of_samples = 100
+    Bezier_Ndeg    = Bezier.N_Degree(num_of_samples)
 
     """
     Description:
@@ -69,7 +66,7 @@ def main():
     """
     if visible_linear == True:
         for i in range(len(points) - 1):
-            result = Bezier.Linear(time, [points[i], points[i + 1]])
+            result = Bezier.Linear(num_of_samples, [points[i], points[i + 1]])
             
             if i == (len(points) - 1) - 1:
                 if dimensional_space == '2D':
@@ -88,7 +85,7 @@ def main():
     """
     if visible_quadratic == True:
         for i in range(len(points) - 2):
-            result = Bezier.Quadratic(time, [points[i], points[i + 1], points[i + 2]])
+            result = Bezier.Quadratic(num_of_samples, [points[i], points[i + 1], points[i + 2]])
             
             if i == (len(points) - 2) - 1:
                 if dimensional_space == '2D':
@@ -107,7 +104,7 @@ def main():
     """
     if visible_cubic == True:
         for i in range(len(points) - 3):
-            result = Bezier.Cubic(time, [points[i], points[i + 1], points[i + 2], points[i + 3]])
+            result = Bezier.Cubic(num_of_samples, [points[i], points[i + 1], points[i + 2], points[i + 3]])
             
             if i == (len(points) - 3) - 1:
                 if dimensional_space == '2D':
