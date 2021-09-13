@@ -12,7 +12,7 @@ Python, C++
 ```bash
  Matplotlib, NumPy
 ```
-tree -o readme.md
+
 ## Project Hierarchy:
 
 **Repositary [/Bezier_Curve_Simple/]:**
