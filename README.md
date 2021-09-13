@@ -25,7 +25,6 @@ Python, C++
 [ Main Class (2D, 3D Bézier curves) + Test Script ] /Script/Python/Main
 [ Main Class (2D, 3D Bézier curves) + Test Script ] /Script/CPP/
 ```
-``` your tree ```
 
 ## Application:
 
