@@ -17,10 +17,15 @@ Python, C++
 
 **Repositary [/Bezier_Curve_Simple/]:**
 ```bash
-├───PDF        # Brief presentation of Bézier curves
-└───Script
-    └───Python # Main Class (2D, 3D Bézier curves) + Test Script
-    └───CPP    # Main Class (2D, 3D Bézier curves) + Test Script
+ 📦Bezier_Curve
+ ┣ 📂PDF
+ ┃ ┗ 📜Bezier_Curves.pdf  # Brief presentation of Bézier curves
+ ┣ 📂Script
+ ┃ ┗ 📂Python             # Main Class (2D, 3D Bézier curves) + Test Script
+ ┃ ┃ ┣ 📜Bezier.py
+ ┃ ┃ ┗ 📜test.py
+ ┣ 📜LICENSE
+ ┗ 📜README.md
 ```
 
 ## Application:
