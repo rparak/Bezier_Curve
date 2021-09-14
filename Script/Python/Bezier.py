@@ -254,13 +254,15 @@ class N_Degree(object):
                 Number of points: 
                     n = 8
                 Simplification Factor:
-                    s_f                     = 1
-                    points_aux (new points) = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
-                    n                  = 8
-                    s_f                = 2
-                    p_aux (new points) = [1.0, 1.0], [None], [1.75, 2.0], [None], [1.0, -1.0], [None], [1.75, -2.0], [2.0, -1.0] 
-                    p_aux (new points) = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
-                    n                  = 5
+                    1\ Example:
+                    s_f        = 1
+                    points_new = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
+                    n          = 8
+                    2\ Example:
+                    s_f        = 2
+                    points_new = [1.0, 1.0], [None], [1.75, 2.0], [None], [1.0, -1.0], [None], [1.75, -2.0], [2.0, -1.0] 
+                    points_new = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
+                    n          = 5
         Args:
             (1) simplification_factor [INT]: Simplification factor for the simplify the path.
 
