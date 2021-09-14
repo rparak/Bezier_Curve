@@ -185,6 +185,49 @@ class N_Degree(object):
         self.__num_of_samples = num_of_samples
 
     @staticmethod
+    def __path_simplification(points, simplification_factor):
+        """
+        Description:
+            Function to simplify the path through the simplification factor. The first and end points do not change, the others 
+            depend on the factor coefficient.
+
+            Example:
+                Input Points: 
+                    points = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
+                Number of points: 
+                    n = 8
+                Simplification Factor:
+                    1\ Example:
+                    s_f        = 1
+                    points_new = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
+                    n          = 8
+                    2\ Example:
+                    s_f        = 2
+                    points_new = [1.0, 1.0], [None], [1.75, 2.0], [None], [1.0, -1.0], [None], [1.75, -2.0], [2.0, -1.0] 
+                    points_new = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
+                    n          = 5
+        Args:
+            (1) simplification_factor [INT]: Simplification factor for the simplify the path.
+
+        Return:
+            (1) parameter{1} [Int/Float Matrix]: New simplified matrix of points to create a curve.
+
+        """
+
+        points_aux = []
+
+        points_aux.append(points[0])
+
+        for i in range(1, len(p) - 1):
+            if i % simplification_factor == 0:
+                points_aux.append(p[i])
+
+        if points_aux[len(points_aux) - 1] != p[len(p) - 1]:
+            points_aux.append(points[len(points) - 1])
+
+        return points_aux
+    
+    @staticmethod
     def __binomial_coefficient(n, k):
         """
         Description:
@@ -240,49 +283,6 @@ class N_Degree(object):
 
         return [c_ni * (self.t**idx) * ((1 - self.t)**(n - idx)) * p 
                 for _, p in enumerate(point)]
-
-    @staticmethod
-    def __path_simplification(points, simplification_factor):
-        """
-        Description:
-            Function to simplify the path through the simplification factor. The first and end points do not change, the others 
-            depend on the factor coefficient.
-
-            Example:
-                Input Points: 
-                    points = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
-                Number of points: 
-                    n = 8
-                Simplification Factor:
-                    1\ Example:
-                    s_f        = 1
-                    points_new = [1.0, 1.0], [1.25, 2.0], [1.75, 2.0], [2.0, 1.0], [1.0, -1.0], [1.25, -2.0], [1.75, -2.0], [2.0, -1.0]
-                    n          = 8
-                    2\ Example:
-                    s_f        = 2
-                    points_new = [1.0, 1.0], [None], [1.75, 2.0], [None], [1.0, -1.0], [None], [1.75, -2.0], [2.0, -1.0] 
-                    points_new = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
-                    n          = 5
-        Args:
-            (1) simplification_factor [INT]: Simplification factor for the simplify the path.
-
-        Return:
-            (1) parameter{1} [Int/Float Matrix]: New simplified matrix of points to create a curve.
-
-        """
-
-        points_aux = []
-
-        points_aux.append(points[0])
-
-        for i in range(1, len(p) - 1):
-            if i % simplification_factor == 0:
-                points_aux.append(p[i])
-
-        if points_aux[len(points_aux) - 1] != p[len(p) - 1]:
-            points_aux.append(points[len(points) - 1])
-
-        return points_aux
 
     def __n_degree(self):
         """
