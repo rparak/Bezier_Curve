@@ -26,7 +26,7 @@ Python, C++
  ┃ ┃ ┗ 📜test.py          # Test Program
  ┃ ┗ 📂CPP           
  ┃ ┃ ┣ 📜Bezier.h         # Main Class (2D, 3D Bézier curves)
- ┃ ┃ ┗ 📜main.cpp         # Test Program
+ ┃ ┃ ┣ 📜main.cpp         # Test Program
  ┃ ┃ ┗ 📜Utils.h
  ┣ 📜LICENSE
  ┗ 📜README.md
