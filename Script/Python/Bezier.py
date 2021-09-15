@@ -307,10 +307,10 @@ class N_Degree(object):
 
         for i in range(1, n + 1):
             # Binomial cooficient in interation (i)
-            c_nk = self.__binomial_coefficient(n, i)
+            c_ni = self.__binomial_coefficient(n, i)
 
             # Calculation positions in iteration (i)
-            aux_result = self.__n_index_curve(i, self.__points[i], n, c_nk)
+            aux_result = self.__n_index_curve(i, self.__points[i], n, c_ni)
 
             # The sum of all positions for the resulting Bézier curve
             for j in range(0, len(aux_result)):
