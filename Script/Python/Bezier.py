@@ -247,11 +247,17 @@ class N_Degree(object):
         """
         try:
             assert(n >= k)
-
+            
             c_nk = 1
-            for i in range(0, k):
-                c_nk *= (n - i)
-                c_nk /= (i + 1)
+            
+            if k == 0 or k == 1:
+                return c_nk;
+            else:
+                for i in range(0, k):
+                    c_nk *= (n - i)
+                    c_nk /= (i + 1)
+                    
+                return c_nk
 
         except AssertionError as error:
             print('[ERROR] The number n must be larger than or equal to k.')
