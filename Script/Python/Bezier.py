@@ -207,7 +207,8 @@ class N_Degree(object):
                         points_new = [1.0, 1.0], [1.75, 2.0], [1.0, -1.0], [1.75, -2.0], [2.0, -1.0]
                         n = 5
         Args:
-            (1) simplification_factor [INT]: Simplification factor for the simplify the path.
+            (1) points [p_{0, .., n}] [Int/Float Matrix]: Multiple points to create a curve.
+            (2) simplification_factor [INT]: Simplification factor for the simplify the path.
 
         Return:
             (1) parameter{1} [Int/Float Matrix]: New simplified matrix of points to create a curve.
