@@ -245,21 +245,21 @@ class N_Degree(object):
         Returns:
             (1) parameter{1} [INT]: Binomial coofecient C(n k).
         """
+        try:
+            assert(n >= k)
 
-        # Take advantage of symmetry
-        if k > (n - k):
-            k = n - k
+            c_nk = 1
 
-        c_nk = 1
+            # Calculation from the simplification equation
+            for i in range(0, k):
+                # numerator
+                c_nk *= (n - i)
+                # denumerator 
+                c_nk /= (i + 1)
 
-        # Calculation from the simplification equation
-        for i in range(0, k):
-            # numerator
-            c_nk *= (n - i)
-            # denumerator 
-            c_nk /= (i + 1)
-
-        return c_nk
+        except AssertionError as error:
+            print('[ERROR] The number n must be larger than or equal to k.')
+            return 0
 
     def __n_index_curve(self, idx, point, n, c_ni):
         """
