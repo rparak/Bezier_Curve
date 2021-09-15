@@ -249,12 +249,8 @@ class N_Degree(object):
             assert(n >= k)
 
             c_nk = 1
-
-            # Calculation from the simplification equation
             for i in range(0, k):
-                # numerator
                 c_nk *= (n - i)
-                # denumerator 
                 c_nk /= (i + 1)
 
         except AssertionError as error:
