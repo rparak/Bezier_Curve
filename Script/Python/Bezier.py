@@ -163,7 +163,7 @@ class N_Degree(object):
             Calculation:
                 res = Cls.Solve(p, simplification_factor)
             
-            where p is equal to [[px_id_0, py_id_0], .., [px_id_n, py_id_n]] in 2D space 
+                where p is equal to [[px_id_0, py_id_0], .., [px_id_n, py_id_n]] in 2D space 
                 and [[px_id_0, py_id_0, pz_id_0], .., [px_id_n, py_id_n, pz_id_n]] in 3D space
     """
 
