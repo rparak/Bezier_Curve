@@ -35,7 +35,18 @@ int main(){
         $ ./test
     */
 
-    // Set input parameters
+    // Set input parameters {2D}
+    std::vector<std::vector<float>> points_lin = {{1.0, 1.0}, {1.25, 2.0}};
+    std::vector<std::vector<float>> points_quadratic = {{1.0, 1.0}, {1.25, 2.0}, 
+                                                        {1.75, 2.0}};
+    std::vector<std::vector<float>> points_cubic = {{1.0, 1.0}, {1.25, 2.0}, 
+                                                    {1.75, 2.0}, {2.0, 1.0}};
+    std::vector<std::vector<float>> points_n_deg = {{1.0, 1.0}, {1.25, 2.0}, 
+                                                    {1.75, 2.0}, {2.0, 1.0}, 
+                                                    {1.0, -1.0}, {1.25, -2.0}, 
+                                                    {1.75, -2.0}, {2.0, -1.0}};
+    
+    // Set input parameters {3D}
     /*
     std::vector<std::vector<float>> points_lin = {{1.0, 1.0, 1.0}, {1.25, 2.0, 2.5}};
     std::vector<std::vector<float>> points_quadratic = {{1.0, 1.0, 1.0}, {1.25, 2.0, 2.5}, 
@@ -47,16 +58,6 @@ int main(){
                                                     {1.0, -1.0, 2.0}, {1.25, -2.0, 1.75}, 
                                                     {1.75, -2.0, 2.75}, {2.0, -1.0, 2.0}};
     */
-
-    std::vector<std::vector<float>> points_lin = {{1.0, 1.0}, {1.25, 2.0}};
-    std::vector<std::vector<float>> points_quadratic = {{1.0, 1.0}, {1.25, 2.0}, 
-                                                        {1.75, 2.0}};
-    std::vector<std::vector<float>> points_cubic = {{1.0, 1.0}, {1.25, 2.0}, 
-                                                    {1.75, 2.0}, {2.0, 1.0}};
-    std::vector<std::vector<float>> points_n_deg = {{1.0, 1.0}, {1.25, 2.0}, 
-                                                    {1.75, 2.0}, {2.0, 1.0}, 
-                                                    {1.0, -1.0}, {1.25, -2.0}, 
-                                                    {1.75, -2.0}, {2.0, -1.0}};
 
     // Display curve points to the console
     bool display_curve = false;
