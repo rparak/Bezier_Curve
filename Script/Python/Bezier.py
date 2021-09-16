@@ -264,7 +264,7 @@ class N_Degree(object):
             print('[ERROR] The number n must be larger than or equal to k.')
             return 0
 
-    def __n_index_curve(self, idx, point, n, c_ni):
+    def __n_index_curve(self, i, point, n, c_ni):
         """
         Description:
             Given n + 1 control points p_{0}, p_{1},..., p_{n} we define the degree n Bezier curve to
@@ -275,7 +275,7 @@ class N_Degree(object):
             where C(n i) is a binomial coefficient.
 
         Args:
-            (1) idx [INT]: Iteration.
+            (1) i [INT]: Iteration.
             (2) point [Int/Float Matrix]: Point (2D/3D) in interation (i).
             (3) n [INT]: Number of points.
             (4) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
@@ -284,7 +284,7 @@ class N_Degree(object):
             (1) parameter{1 .. self.__num_of_dimensions} [Int/Float Matrix]: Results of curve values in iteration (i).
         """
 
-        return [c_ni * (self.t**idx) * ((1 - self.t)**(n - idx)) * p 
+        return [c_ni * (self.t**i) * ((1 - self.t)**(n - i)) * p 
                 for _, p in enumerate(point)]
 
     def __n_degree(self):
