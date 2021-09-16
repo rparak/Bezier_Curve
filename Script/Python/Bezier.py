@@ -222,7 +222,7 @@ class N_Degree(object):
             if i % simplification_factor == 0:
                 points_aux.append(points[i])
 
-        if points_aux[-1].any() != points[-1].any():
+        if points_aux[-1] != points[-1]:
             points_aux.append(points[-1])
 
         return points_aux
