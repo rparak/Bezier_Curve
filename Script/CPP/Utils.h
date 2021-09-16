@@ -112,7 +112,7 @@ namespace Utils{
             (2) k [uint16_t]: Integer number 2 (denumerator)
 
         Returns:
-            (1) parameter{1} [uint16_t]: Binomial coofecient C(n k).
+            (1) parameter [uint16_t]: Binomial coofecient C(n k).
         */
 
         if(k > n) { throw std::invalid_argument("The number n must be larger than or equal to k."); }
