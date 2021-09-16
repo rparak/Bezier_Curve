@@ -244,7 +244,7 @@ class N_Degree(object):
             (2) k [INT]: Integer number 2 (denumerator)
 
         Returns:
-            (1) parameter{1} [INT]: Binomial coofecient C(n k).
+            (1) parameter [INT]: Binomial coofecient C(n k).
         """
         try:
             assert(n >= k)
