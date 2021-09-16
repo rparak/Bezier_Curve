@@ -296,7 +296,7 @@ class N_Degree(object):
             (1) parameter [{0 .. Number of dimensions - 1}] [Int/Float Matrix]: Resulting points of the curve.
         """
         
-        # Number of points in matrix
+        # Number of points in the matrix
         n = len(self.__points) - 1
 
         # Calculation of binomial cooficient of the first iteration
