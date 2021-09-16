@@ -249,14 +249,17 @@ class N_Degree(object):
         try:
             assert(n >= k)
             
-            c_nk = 1
-            
-            if k == 0 or k == 1:
-                return c_nk;
+            if k == 0:
+                return 1
+            elif k == 1:
+                return n
             else:
+                c_nk = 1
+                
+                # Calculation from the simplification equation
                 for i in range(0, k):
-                    c_nk *= (n - i)
-                    c_nk /= (i + 1)
+                    c_nk *= (n - i) # numerator
+                    c_nk /= (i + 1) # denumerator
                     
                 return c_nk
 
@@ -301,7 +304,6 @@ class N_Degree(object):
 
         # Calculation of binomial cooficient of the first iteration
         c_nk = self.__binomial_coefficient(n, 0)
-
         # Calculation of the first curve positions
         result = self.__n_index_curve(0, self.__points[0], n, c_nk)
 
