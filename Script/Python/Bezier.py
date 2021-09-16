@@ -281,7 +281,7 @@ class N_Degree(object):
             (4) c_ni [INT]: Binomial coofecient C(n i) in iteration (i).
 
         Returns:
-            (1) parameter{1 .. self.__num_of_dimensions} [Int/Float Matrix]: Results of curve values in iteration (i).
+            (1) parameter{1 .. Number of dimensions - 1} [Int/Float Matrix]: Results of curve values in iteration (i).
         """
 
         return [c_ni * (self.t**i) * ((1 - self.t)**(n - i)) * p 
