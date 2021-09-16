@@ -97,7 +97,7 @@ namespace Utils{
         return result;
     }
 
-    uint16_t Binomial_Coefficient(const uint16_t n, uint16_t k){
+    uint16_t Binomial_Coefficient(const uint16_t n, const uint16_t k){
         /*  
         Description:
                 Calculation binomial coofecient C, from pair of integers n ≥ k ≥ 0 and is written (n k). The binomial coefficients are the positive integers that occur as coefficients in the binomial theorem.
