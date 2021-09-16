@@ -52,15 +52,6 @@ def main():
         points = [[1.0, 1.0, 1.0], [1.25, 2.0, 2.5], [1.75, 2.0, 1.5], [2.0, 1.0, 1.0], [1.0, -1.0, 2.0], [1.25, -2.0, 1.75], [1.75, -2.0, 2.75], [2.0, -1.0, 2.0]]
 
     """
-    Initialization Bezier Class
-    
-    Input:
-        (1) num_of_samples [INT]: Number of samples to generate. Must be non-negative.
-    """
-    num_of_samples = 100
-    Bezier_Ndeg    = Bezier.N_Degree(num_of_samples)
-
-    """
     Description:
         1\ Calculation and display the Linear Bézier Curve p(t).
     """
@@ -117,6 +108,15 @@ def main():
                 else:
                     axis.plot(result[0], result[1], result[2], 'b--', linewidth=2.5)
 
+    """
+    Initialization Bezier Class
+    
+    Input:
+        (1) num_of_samples [INT]: Number of samples to generate. Must be non-negative.
+    """
+    num_of_samples = 100
+    Bezier_Ndeg    = Bezier.N_Degree(num_of_samples)
+    
     """
     Description:
         4\ Automatic Curve Calculation (Result of the calculation) -> depends on the simplification factor
