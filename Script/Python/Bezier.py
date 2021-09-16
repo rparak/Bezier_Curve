@@ -219,11 +219,11 @@ class N_Degree(object):
 
         points_aux.append(points[0])
 
-        for i in range(1, len(p) - 1):
+        for i in range(1, len(points) - 1):
             if i % simplification_factor == 0:
-                points_aux.append(p[i])
+                points_aux.append(points[i])
 
-        if points_aux[len(points_aux) - 1] != p[len(p) - 1]:
+        if points_aux[len(points_aux) - 1] != points[len(points) - 1]:
             points_aux.append(points[len(points) - 1])
 
         return points_aux
