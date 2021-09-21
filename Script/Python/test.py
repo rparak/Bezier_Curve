@@ -25,13 +25,13 @@ File Name: test.py
 ## =========================================================================== ## 
 """
 
-# System (Default Lib.)
+# System (Default)
 import sys
 
-# Numpy (Array computing Lib.) [pip3 install numpy]
+# Numpy (Array computing) [pip3 install numpy]
 import numpy as np
 
-# Mtaplotlib (Visualization Lib.) [pip3 install matplotlib]
+# Matplotlib (Visualization) [pip3 install matplotlib]
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 
