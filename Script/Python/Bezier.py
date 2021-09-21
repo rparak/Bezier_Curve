@@ -25,7 +25,7 @@ File Name: Bezier.py
 ## =========================================================================== ## 
 """
 
-# Numpy (Array computing Lib.) [pip3 install numpy]
+# Numpy (Array computing) [pip3 install numpy]
 import numpy as np
 
 # Support for type hints
